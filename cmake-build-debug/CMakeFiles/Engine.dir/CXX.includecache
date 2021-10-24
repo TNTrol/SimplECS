@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/tntrol/CLionProjects/Engine/memory_manager/iallocator.h
+cstddef
+-
+
+/home/tntrol/CLionProjects/Engine/memory_manager/stack_allocator.cpp
+stdexcept
+-
+stack_allocator.h
+/home/tntrol/CLionProjects/Engine/memory_manager/stack_allocator.h
+
+/home/tntrol/CLionProjects/Engine/memory_manager/stack_allocator.h
+cstddef
+-
+iallocator.h
+/home/tntrol/CLionProjects/Engine/memory_manager/iallocator.h
+queue
+-
+
