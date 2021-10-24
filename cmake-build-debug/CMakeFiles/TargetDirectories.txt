@@ -1,3 +1,0 @@
-/home/tntrol/CLionProjects/Engine/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/tntrol/CLionProjects/Engine/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/tntrol/CLionProjects/Engine/cmake-build-debug/CMakeFiles/Engine.dir
