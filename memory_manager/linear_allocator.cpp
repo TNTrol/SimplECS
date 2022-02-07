@@ -25,10 +25,20 @@ void ECS::Memory::LinearAllocator::free(void *ptr)
 
 void *ECS::Memory::LinearAllocator::allocate(size_t size)
 {
-    return nullptr;
+    if(m_curr + size > m_size)
+    {
+        return nullptr;
+    }
+    void* ptr = ((TYPE*)m_first) + m_curr;
+    m_curr += size;
+    ++m_count_object;
+    m_use_size += size;
+    return ptr;
 }
 
 void ECS::Memory::LinearAllocator::clear()
 {
-
+    m_curr = 0;
+    m_use_size = 0;
+    m_count_object = 0;
 }

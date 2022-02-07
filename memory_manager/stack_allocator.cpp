@@ -1,4 +1,4 @@
-//
+        //
 // Created by tntrol on 12.10.2021.
 //
 
@@ -23,6 +23,10 @@ ECS::Memory::StackAllocator::~StackAllocator()
 
 void ECS::Memory::StackAllocator::free(void *ptr)
 {
+    if(!ptr)
+    {
+        return;
+    }
     TYPE* s_ptr = (TYPE*) ptr - sizeof(size_o);
     --m_count_object;
     m_use_size -= (static_cast<size_t>(*s_ptr) + sizeof(size_o));

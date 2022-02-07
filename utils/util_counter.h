@@ -13,7 +13,7 @@ namespace util
     template<class T>
     static Index get()
     {
-        static Index index;
+        static Index index = 0;
         return ++index;
     }
 

@@ -10,11 +10,13 @@ struct ABC
     int a;
 };
 
+
 #include "stack"
 #include "vector"
 #include <queue>
 
 #include "memory_manager/stack_allocator.h"
+#include "./support_class/container_object.h"
 
 int main()
 {
@@ -31,22 +33,9 @@ int main()
 //    std::queue<int> q;
 //    std::vector<int> vec;
 //    std::cout << sizeof(unsigned int );
-    ECS::Memory::IAllocator *allocator = new ECS::Memory::StackAllocator(70);
-    int*g = nullptr;
-    int *c_arr[5];
-    for(int i = 0; i < 5; ++i)
-    {
-        void *a = allocator->allocate(sizeof(int));
-        c_arr[i] = new (a) int(i);
-    }
-    for(int i = 0; i < 5; ++i)
-    {
-        allocator->free(c_arr[i]);
-    }
-    for(int i = 0; i < 5; ++i)
-    {
-        void *a = allocator->allocate(sizeof(int));
-        c_arr[i] = new (a) int(i);
-    }
+    ECS::ContainerObject<ECS::IEntity> container(10, 10);
+    container.add(e);
+    container.add(e2);
+    std::cout << sizeof(container);
     return 0;
 }

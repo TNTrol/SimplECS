@@ -5,24 +5,27 @@
 #ifndef ENGINE_HELPER_TYPEDEF_H
 #define ENGINE_HELPER_TYPEDEF_H
 
-typedef unsigned int EntityID;
-typedef unsigned int Index;
-typedef unsigned int ComponentID;
-typedef unsigned int SystemID;
-typedef unsigned int EntityTypeID;
-typedef unsigned int ComponentTypeID;
-typedef unsigned int SystemTypeID;
+#include <cinttypes>
+
+typedef std::uint32_t Number;
+typedef Number EntityID;
+typedef Number Index;
+typedef Number ComponentID;
+typedef Number SystemID;
+typedef Number EntityTypeID;
+typedef Number ComponentTypeID;
+typedef Number SystemTypeID;
 
 struct EntityTypeIdS
 {
-    int a;
+    char a;
 };
 struct ComponentTypeIdS
 {
-    int a;
+    char a;
 };
 struct SystemTypeIdS
 {
-    int a;
+    char a;
 };
 #endif //ENGINE_HELPER_TYPEDEF_H

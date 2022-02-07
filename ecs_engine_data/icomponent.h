@@ -7,15 +7,17 @@
 
 #include "../support_class/helper_typedef.h"
 #include "../utils/util_counter.h"
+#include "../container/icontainer.h"
 
-//#include "../ecs_core/component_manager.h"
 namespace ECS
 {
+    class ComponentManager;
     class IComponent
     {
         friend class ComponentManager;
-    protected:
-        ComponentID m_id = util::get<IComponent>();
+        friend class IContainer<IComponent>;
+    private:
+        ComponentID m_id;
         EntityID m_owner;
     public:
         inline ComponentID getId() const

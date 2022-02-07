@@ -1,17 +1,21 @@
 //
 // Created by tntrol on 08.09.2021.
 //
-
+//#include "../ecs_core/entity_manager.h"
 #ifndef ENGINE_IENTITY_H
 #define ENGINE_IENTITY_H
 #include "../support_class/helper_typedef.h"
 #include "../utils/util_counter.h"
+
+class EntityManager;
+
 namespace ECS
 {
     class IEntity
     {
-    protected:
-        EntityID m_id = util::get<IEntity>();
+        friend class EntityManager;
+    private:
+        EntityID m_id;
         bool m_active;
     public:
         //virtual ~IEntity();

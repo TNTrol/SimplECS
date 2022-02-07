@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Engine"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Engine">
+				<Option output="/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Engine" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 Engine"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Engine/fast">
+				<Option output="/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Engine" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/x86_64-pc-linux-gnu"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/../../../../include/c++/11.1.0/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-pc-linux-gnu/11.1.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 Engine/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/tntrol/CLionProjects/Engine_ECS/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/container/chunk_container.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/container/icontainer.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ecs_core/API.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ecs_core/component_manager.cpp">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ecs_core/component_manager.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ecs_core/entity_manager.cpp">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ecs_core/entity_manager.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ecs_engine_data/component.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ecs_engine_data/entity.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ecs_engine_data/icomponent.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ecs_engine_data/ientity.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ecs_engine_data/isystem.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ecs_engine_data/system.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/ex.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/main.cpp">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/memory_manager/iallocator.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/memory_manager/linear_allocator.cpp">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/memory_manager/linear_allocator.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/memory_manager/stack_allocator.cpp">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/memory_manager/stack_allocator.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/support_class/container_object.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/support_class/helper_typedef.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/utils/util_counter.h">
+			<Option target="Engine"/>
+		</Unit>
+		<Unit filename="/home/tntrol/CLionProjects/Engine_ECS/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
