@@ -18,6 +18,27 @@ struct ABC
 #include "memory_manager/stack_allocator.h"
 #include "./support_class/container_object.h"
 
+struct node_t
+{
+    uint32_t a;
+    uint32_t b;
+};
+
+struct node2_t
+{
+    uint64_t t;
+};
+
+union node_u
+{
+    struct
+    {
+        uint32_t a;
+        uint32_t b;
+    } node;
+    uint8_t arr[9];
+};
+
 int main()
 {
     auto *e = new ECS::Entity<int>();
@@ -36,6 +57,7 @@ int main()
     ECS::ContainerObject<ECS::IEntity> container(10, 10);
     container.add(e);
     container.add(e2);
-    std::cout << sizeof(container);
+    node_u node;
+    std::cout << sizeof(node);
     return 0;
 }
