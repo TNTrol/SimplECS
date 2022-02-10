@@ -24,7 +24,7 @@ namespace Memory
         std::queue<Block> m_free_parts;
         size_t m_curr;
     public:
-        StackAllocator(const size_t);
+        StackAllocator(const size_t, void* ptr);
 
         ~StackAllocator() override;
 

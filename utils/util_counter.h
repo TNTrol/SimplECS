@@ -26,6 +26,7 @@ namespace util
         {
             return index++;
         }
+
         static Index get()
         {
             return index;

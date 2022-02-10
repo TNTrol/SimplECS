@@ -20,6 +20,6 @@ namespace ECS
         }
     };
     template<class T>
-    const ComponentTypeID Component<T>::STATIC_TYPE = util::get<ComponentTypeIdS>();
+    const ComponentTypeID Component<T>::STATIC_TYPE = util::get<IComponent>();
 }
 #endif //ENGINE_COMPONENT_H

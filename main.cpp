@@ -5,18 +5,13 @@
 #include "./support_class/helper_typedef.h"
 
 #include "ex.h"
-struct ABC
-{
-    int a;
-};
-
 
 #include "stack"
 #include "vector"
 #include <queue>
 
 #include "memory_manager/stack_allocator.h"
-#include "./support_class/container_object.h"
+#include "./support_class/hash_container.h"
 
 struct node_t
 {
@@ -41,10 +36,11 @@ union node_u
 
 int main()
 {
-    auto *e = new ECS::Entity<int>();
-    auto *e2 = new ECS::Entity<int>();
-    auto *l3 = new ECS::Entity<long>();
-    auto *e3 = new ECS::Entity<float>();
+    char *b = new char[30];
+    auto *e = new(b) ECS::Entity<int>();
+    auto *e2 = new(b + sizeof(ECS::Entity<int>)) ECS::Entity<int>();
+//    auto *l3 = new ECS::Entity<long>();
+//    auto *e3 = new ECS::Entity<float>();
     Example<10> arr;
 
 //    std::cout << "Hello, World!" << ECS::Component<int>::STATIC_TYPE <<" " <<  ECS::Component<float>::STATIC_TYPE<<std::endl;
@@ -54,9 +50,10 @@ int main()
 //    std::queue<int> q;
 //    std::vector<int> vec;
 //    std::cout << sizeof(unsigned int );
-    ECS::ContainerObject<ECS::IEntity> container(10, 10);
+    ECS::HashContainer<ECS::IEntity> container(10, 10);
     container.add(e);
     container.add(e2);
+
     node_u node;
     std::cout << sizeof(node);
     return 0;

@@ -6,9 +6,9 @@
 #define ENGINE_COMPONENT_MANAGER_H
 #include "../support_class/helper_typedef.h"
 #include "../ecs_engine_data/icomponent.h"
-#include "../container/icontainer.h"
-#include "../support_class/container_object.h"
-#include "../container/chunk_container.h"
+#include "../container/ipool_object.h"
+#include "../support_class/hash_container.h"
+#include "../container/pool_object.h"
 #include "../memory_manager/stack_allocator.h"
 #include "API.h"
 
@@ -19,24 +19,30 @@ namespace ECS
     class ComponentManager
     {
     protected:
-        std::vector<IContainer<IComponent>*> m_pool;
+        std::vector<IPoolObject<IComponent>*> m_pool;
         std::vector<std::vector<ComponentID>> m_components;
-        const unsigned int m_count_type;
-        const unsigned int m_max_entity;
-        const unsigned int m_grow;
+        Util::HashContainer<IComponent> m_comp; //todo
+        Memory::IAllocator *m_allocator;
+        const uint32_t m_count_type;
+        const uint32_t m_max_entity;
+        const uint32_t m_grow;
     private:
         void addComponent(EntityID entityId,IComponent *component);
         template<class T>
-        IContainer<IComponent>* getContainer()
+        IPoolObject<IComponent>* getContainer()
         {
             if(!m_pool[T::STATIC_TYPE])
             {
-                m_pool[T::STATIC_TYPE] = new ChunkContainer<IComponent>(new ECS::Memory::StackAllocator(ENTITY_SIZE_STACK * sizeof(T)), sizeof(T));
+                size_t size = ENTITY_SIZE_STACK * sizeof(T);
+                Memory::IAllocator *allocator = m_allocator ?
+                                    m_allocator :
+                                    new Memory::StackAllocator(ENTITY_SIZE_STACK * sizeof(T), new char[size]);
+                m_pool[T::STATIC_TYPE] = new PoolObject<IComponent>(allocator, sizeof(T), COUNT_ENTITY_TAG);
             }
             return m_pool[T::STATIC_TYPE];
         }
     public:
-        ComponentManager(unsigned int max_entity = ENTITY_SIZE_STACK, unsigned int grow = ENTITY_GROW_STACK);
+        ComponentManager(uint32_t max_entity = ENTITY_SIZE_STACK, uint32_t grow = ENTITY_GROW_STACK, Memory::IAllocator *allocator = nullptr);
         ~ComponentManager();
         void removeAllComponents(EntityID entity_id);
 

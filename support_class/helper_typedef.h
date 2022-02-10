@@ -16,16 +16,4 @@ typedef Number EntityTypeID;
 typedef Number ComponentTypeID;
 typedef Number SystemTypeID;
 
-struct EntityTypeIdS
-{
-    char a;
-};
-struct ComponentTypeIdS
-{
-    char a;
-};
-struct SystemTypeIdS
-{
-    char a;
-};
 #endif //ENGINE_HELPER_TYPEDEF_H

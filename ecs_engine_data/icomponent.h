@@ -7,7 +7,7 @@
 
 #include "../support_class/helper_typedef.h"
 #include "../utils/util_counter.h"
-#include "../container/icontainer.h"
+#include "../container/ipool_object.h"
 
 namespace ECS
 {
@@ -15,7 +15,6 @@ namespace ECS
     class IComponent
     {
         friend class ComponentManager;
-        friend class IContainer<IComponent>;
     private:
         ComponentID m_id;
         EntityID m_owner;

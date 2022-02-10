@@ -4,12 +4,16 @@
 
 #include "entity_manager.h"
 
-ECS::EntityManager::EntityManager(ComponentManager*component_manager, const unsigned int max_count_entity, const unsigned int grow):
+ECS::EntityManager::EntityManager(ComponentManager*component_manager,
+                                  const uint32_t max_count_entity,
+                                  const uint32_t grow,
+                                  Memory::IAllocator *allocator):
     m_max_count_entity(max_count_entity),
     m_component_manager(component_manager),
     m_count_destroy(0),
     m_entity(max_count_entity, grow),
-    m_count_type(util::get<EntityTypeIdS>() - 1)
+    m_count_type(util::get<IEntity>() - 1),
+    m_allocator(allocator)
 {
     m_pool.resize(m_count_type);
     m_destroy_entity.resize(DESTROY_SIZE_STACK);

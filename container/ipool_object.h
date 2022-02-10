@@ -2,8 +2,8 @@
 // Created by tntrol on 11.09.2021.
 //
 
-#ifndef ENGINE_ICONTAINER_H
-#define ENGINE_ICONTAINER_H
+#ifndef ENGINE_IPOOL_OBJECT_H
+#define ENGINE_IPOOL_OBJECT_H
 
 #include <cstddef>
 #include "../support_class/helper_typedef.h"
@@ -11,18 +11,20 @@
 namespace ECS
 {
     template<class T>
-    class IContainer
+    class IPoolObject
     {
     protected:
-        virtual void* create_obj() = 0;
+        virtual void *create_obj() = 0;
+
         virtual void destruct(void *ptr) = 0;
+
     public:
-        virtual ~IContainer()
+        virtual ~IPoolObject()
         {}
 
-        inline T* create()
+        inline T *create()
         {
-            T *t = (T*) create_obj();
+            T *t = (T *) create_obj();
             return t;
         }
 
@@ -33,4 +35,4 @@ namespace ECS
     };
 
 }
-#endif //ENGINE_ICONTAINER_H
+#endif //ENGINE_IPOOL_OBJECT_H

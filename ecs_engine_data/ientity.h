@@ -34,6 +34,11 @@ namespace ECS
         {
             m_active = active;
         }
+
+        inline bool operator==(const IEntity& rhs) const { return this->m_id == rhs.m_id; }
+        inline bool operator!=(const IEntity& rhs) const { return this->m_id != rhs.m_id; }
+        inline bool operator==(const IEntity* rhs) const { return this->m_id == rhs->m_id; }
+        inline bool operator!=(const IEntity* rhs) const { return this->m_id != rhs->m_id; }
     };
 }
 #endif //ENGINE_IENTITY_H

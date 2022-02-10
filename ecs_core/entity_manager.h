@@ -5,10 +5,10 @@
 #ifndef ENGINE_ENTITY_MANAGER_H
 #define ENGINE_ENTITY_MANAGER_H
 #include "../support_class/helper_typedef.h"
-#include "../support_class/container_object.h"
+#include "../support_class/hash_container.h"
 #include "../ecs_engine_data/ientity.h"
-#include "../container/icontainer.h"
-#include "../container/chunk_container.h"
+#include "../container/ipool_object.h"
+#include "../container/pool_object.h"
 #include "../memory_manager/stack_allocator.h"
 #include "component_manager.h"
 #include "API.h"
@@ -20,15 +20,19 @@ namespace ECS
     class EntityManager
     {
     protected:
-        ECS::ContainerObject<IEntity> m_entity;
-        std::vector<IContainer<IEntity>*> m_pool;
+        Util::HashContainer<IEntity> m_entity;
+        std::vector<IPoolObject<IEntity>*> m_pool;
         std::vector<EntityID> m_destroy_entity;
         ComponentManager *m_component_manager;
-        const unsigned int m_count_type;
-        const unsigned int m_max_count_entity;
-        unsigned int m_count_destroy;
+        Memory::IAllocator *m_allocator;
+        const uint32_t m_count_type;
+        const uint32_t m_max_count_entity;
+        uint32_t m_count_destroy;
     public:
-        EntityManager(ComponentManager*component_manager, unsigned int max_count_entity = ENTITY_SIZE_STACK, unsigned int grow = ENTITY_GROW_STACK);
+        EntityManager(ComponentManager*component_manager,
+                      uint32_t max_count_entity = ENTITY_SIZE_STACK,
+                      uint32_t grow = ENTITY_GROW_STACK,
+                      Memory::IAllocator *allocator = nullptr);
         ~EntityManager();
         void destroyEntity(EntityID entityId);
         void removeDestroyedEntity();
@@ -39,11 +43,13 @@ namespace ECS
         }
 
         template<class T>
-        inline IContainer<IEntity>* getContainer()
+        inline IPoolObject<IEntity>* getContainer()
         {
             if(!m_pool[T::STATIC_TYPE])
             {
-                m_pool[T::STATIC_TYPE] = new ChunkContainer<IEntity>(new Memory::StackAllocator(ENTITY_SIZE_STACK * sizeof(T)), sizeof(T)); //todo
+                size_t size = ENTITY_SIZE_STACK * sizeof(T);
+                void *ptr = m_allocator ? m_allocator->allocate(size) : new char[size];
+                m_pool[T::STATIC_TYPE] = new PoolObject<IEntity>(new Memory::StackAllocator(size, ptr), sizeof(T), COUNT_ENTITY_TAG);
             }
             return m_pool[T::STATIC_TYPE];
         }

@@ -6,8 +6,8 @@
 #include "stack_allocator.h"
 #define TYPE char
 
-ECS::Memory::StackAllocator::StackAllocator(const size_t size):
-            Memory::IAllocator(size, (void*)new char[size]),
+ECS::Memory::StackAllocator::StackAllocator(const size_t size, void* ptr):
+            Memory::IAllocator(size, ptr),
             m_curr(0)
 {
     if(!m_first)

@@ -4,10 +4,13 @@
 
 #include "component_manager.h"
 
-ECS::ComponentManager::ComponentManager(const unsigned int max_entity, const unsigned int grow):
+ECS::ComponentManager::ComponentManager(const uint32_t max_entity,
+                                        const uint32_t grow,
+                                        Memory::IAllocator *allocator):
     m_grow(grow),
     m_max_entity(max_entity),
-    m_count_type(util::get<ComponentTypeIdS>() - 1)
+    m_count_type(util::get<IComponent>() - 1),
+    m_allocator(allocator)
 {
     m_components.resize(max_entity);
     m_pool.resize(m_count_type);
@@ -29,9 +32,9 @@ ECS::ComponentManager::~ComponentManager()
     }
 }
 
-void ECS::ComponentManager::removeAllComponents(const EntityID entity_id) //todo
+void ECS::ComponentManager::removeAllComponents(const EntityID entity_id) // todo
 {
-//    ContainerObject *components = m_components[entity_id];
+//    HashContainer *components = m_components[entity_id];
 //    int size;
 //    if(components)
 //    {
@@ -47,7 +50,7 @@ void ECS::ComponentManager::removeAllComponents(const EntityID entity_id) //todo
 
 void ECS::ComponentManager::addComponent(EntityID entityId, ECS::IComponent *component)
 {
-//    ContainerObject *components = m_components[entityId];
+//    HashContainer *components = m_components[entityId];
 //    if(!components)
 //    {
 //        components = new ComponentsOfEntity(m_count_type);

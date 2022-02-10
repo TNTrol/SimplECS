@@ -2,10 +2,10 @@
 // Created by tntrol on 04.11.2021.
 //
 
-#ifndef ENGINE_CHUNK_CONTAINER_H
-#define ENGINE_CHUNK_CONTAINER_H
+#ifndef ENGINE_POOL_OBJECT_H
+#define ENGINE_POOL_OBJECT_H
 
-#include "icontainer.h"
+#include "ipool_object.h"
 #include "../memory_manager/iallocator.h"
 
 namespace ECS
@@ -17,7 +17,7 @@ namespace ECS
     };
 
     template<class T>
-    class ChunkContainer : public IContainer<T>
+    class PoolObject : public IPoolObject<T>
     {
     private:
         ECS::Memory::IAllocator *m_allocator;
@@ -39,13 +39,13 @@ namespace ECS
         void setup();
 
     public:
-        ChunkContainer(ECS::Memory::IAllocator *allocator, size_t size_object, size_t count_object = 0);
+        PoolObject(Memory::IAllocator *allocator, size_t size_object, size_t count_object);
 
-        ~ChunkContainer();
+        ~PoolObject();
     };
 
     template<class T>
-    void *ChunkContainer<T>::create_obj()
+    void *PoolObject<T>::create_obj()
     {
         void *t;
         if (m_curr < m_max_count)
@@ -67,7 +67,7 @@ namespace ECS
     }
 
     template<class T>
-    void ChunkContainer<T>::destruct(void *ptr)
+    void PoolObject<T>::destruct(void *ptr)
     {
         uint32_t ind = (ptr - m_objects) / m_size_object;
         if (ptr < m_offsets || ind >= m_max_count || m_offsets[ind].prev == 0xFFFFFFFF)
@@ -105,7 +105,7 @@ namespace ECS
     }
 
     template<class T>
-    ChunkContainer<T>::ChunkContainer(ECS::Memory::IAllocator *allocator, size_t size, size_t count_object):
+    PoolObject<T>::PoolObject(ECS::Memory::IAllocator *allocator, size_t size, size_t count_object):
             m_allocator(allocator),
             m_size_object(size),
             m_max_count(count_object)
@@ -116,14 +116,14 @@ namespace ECS
     }
 
     template<class T>
-    ChunkContainer<T>::~ChunkContainer()
+    PoolObject<T>::~PoolObject()
     {
         m_allocator->free(m_objects);
         m_allocator->free(m_offsets);
     }
 
     template<class T>
-    void ChunkContainer<T>::setup()
+    void PoolObject<T>::setup()
     {
         m_stack = m_max_count - 1;
         m_curr = 0;
@@ -134,4 +134,4 @@ namespace ECS
     }
 
 }
-#endif //ENGINE_CHUNK_CONTAINER_H
+#endif //ENGINE_POOL_OBJECT_H
