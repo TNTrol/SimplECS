@@ -5,35 +5,35 @@
 #ifndef ENGINE_UTIL_COUNTER_H
 #define ENGINE_UTIL_COUNTER_H
 
-#include "../support_class/helper_typedef.h"
+#include "../support_class/ecs_typedef.h"
 
-namespace util
+namespace ECS
 {
-
-    template<class T>
-    static Index get()
+    namespace Util
     {
-        static Index index = 0;
-        return ++index;
-    }
-
-    template<class T>
-    class Counter
-    {
-        static Index index;
-    public:
-        static Index getAndIncrement()
-        {
-            return index++;
-        }
-
+        template<class T>
         static Index get()
         {
-            return index;
+            static Index index = 0;
+            return ++index;
         }
-    };
 
+        template<class T>
+        class Counter //todo
+        {
+            static Index index;
+        public:
+            static Index getAndIncrement()
+            {
+                return index++;
+            }
 
+            static Index get()
+            {
+                return index;
+            }
+        };
+    }
 }
 
 #endif //ENGINE_UTIL_COUNTER_H

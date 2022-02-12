@@ -2,7 +2,7 @@
 #include "./ecs_engine_data/entity.h"
 #include "./ecs_engine_data/component.h"
 #include "./utils/util_counter.h"
-#include "./support_class/helper_typedef.h"
+#include "./support_class/ecs_typedef.h"
 
 #include "ex.h"
 
@@ -11,7 +11,7 @@
 #include <queue>
 
 #include "memory_manager/stack_allocator.h"
-#include "./support_class/hash_container.h"
+#include "utils/hash_container.h"
 
 struct node_t
 {
@@ -50,7 +50,7 @@ int main()
 //    std::queue<int> q;
 //    std::vector<int> vec;
 //    std::cout << sizeof(unsigned int );
-    ECS::HashContainer<ECS::IEntity> container(10, 10);
+    ECS::Util::HashContainer<ECS::IEntity> container(10, 10);
     container.add(e);
     container.add(e2);
 

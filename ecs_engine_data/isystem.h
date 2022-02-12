@@ -4,8 +4,10 @@
 
 #ifndef ENGINE_ISYSTEM_H
 #define ENGINE_ISYSTEM_H
-#include "../support_class/helper_typedef.h"
+
+#include "../support_class/ecs_typedef.h"
 #include "../utils/util_counter.h"
+
 namespace ECS
 {
     class ISystem
@@ -17,6 +19,7 @@ namespace ECS
         {
             return m_id;
         }
+
         virtual SystemTypeID getType() = 0;
     };
 }

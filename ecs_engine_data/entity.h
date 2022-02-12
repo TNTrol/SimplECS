@@ -5,7 +5,7 @@
 #ifndef ENGINE_ENTITY_H
 #define ENGINE_ENTITY_H
 
-#include "../support_class/helper_typedef.h"
+#include "../support_class/ecs_typedef.h"
 #include "../utils/util_counter.h"
 #include "ientity.h"
 
@@ -37,6 +37,6 @@ namespace ECS
     };
 
     template<class E>
-    const EntityTypeID Entity<E>::STATIC_TYPE = util::get<IEntity>();
+    const EntityTypeID Entity<E>::STATIC_TYPE = Util::get<IEntity>();
 }
 #endif //ENGINE_ENTITY_H

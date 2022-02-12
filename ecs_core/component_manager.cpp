@@ -6,15 +6,15 @@
 
 ECS::ComponentManager::ComponentManager(const uint32_t max_entity,
                                         const uint32_t grow,
-                                        Memory::IAllocator *allocator):
-    m_grow(grow),
-    m_max_entity(max_entity),
-    m_count_type(util::get<IComponent>() - 1),
-    m_allocator(allocator)
+                                        Memory::IAllocator *allocator) :
+        m_grow(grow),
+        m_max_entity(max_entity),
+        m_count_type(Util::get<IComponent>() - 1),
+        m_allocator(allocator)
 {
     m_components.resize(max_entity);
     m_pool.resize(m_count_type);
-    for(int i = 0; i < m_count_type; ++i)
+    for (int i = 0; i < m_count_type; ++i)
     {
         m_pool[i] = nullptr;
     }
@@ -26,9 +26,9 @@ ECS::ComponentManager::~ComponentManager()
     {
         delete m_pool[i];
     }
-    for(int i = 0; i < m_components.size(); ++i)
+    for (int i = 0; i < m_components.size(); ++i)
     {
-       // delete m_components[i]; //todo
+        // delete m_components[i]; //todo
     }
 }
 

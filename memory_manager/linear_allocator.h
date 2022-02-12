@@ -4,13 +4,14 @@
 
 #ifndef ENGINE_LINEAR_ALLOCATOR_H
 #define ENGINE_LINEAR_ALLOCATOR_H
+
 #include "iallocator.h"
 
 namespace ECS
 {
     namespace Memory
     {
-        class LinearAllocator: IAllocator
+        class LinearAllocator : IAllocator
         {
         private:
             size_t m_curr;

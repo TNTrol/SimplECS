@@ -9,31 +9,33 @@
 #include "iallocator.h"
 
 #include <queue>
+
 namespace ECS
 {
-namespace Memory
-{
-    struct Block
+    namespace Memory
     {
-        size_t m_size;
-        void* m_ptr;
-    };
-    class StackAllocator : public Memory::IAllocator
-    {
-    private:
-        std::queue<Block> m_free_parts;
-        size_t m_curr;
-    public:
-        StackAllocator(const size_t, void* ptr);
+        struct Block
+        {
+            size_t m_size;
+            void *m_ptr;
+        };
 
-        ~StackAllocator() override;
+        class StackAllocator : public Memory::IAllocator
+        {
+        private:
+            std::queue<Block> m_free_parts;
+            size_t m_curr;
+        public:
+            StackAllocator(const size_t, void *ptr);
 
-        void free(void *ptr) override;
+            ~StackAllocator() override;
 
-        void *allocate(size_t size) override;
+            void free(void *ptr) override;
 
-        void clear() override;
-    };
-}
+            void *allocate(size_t size) override;
+
+            void clear() override;
+        };
+    }
 }
 #endif //ENGINE_STACK_ALLOCATOR_H

@@ -6,7 +6,7 @@
 #define ENGINE_IPOOL_OBJECT_H
 
 #include <cstddef>
-#include "../support_class/helper_typedef.h"
+#include "../support_class/ecs_typedef.h"
 
 namespace ECS
 {
