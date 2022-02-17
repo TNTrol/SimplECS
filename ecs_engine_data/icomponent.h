@@ -5,9 +5,8 @@
 #ifndef ENGINE_ICOMPONENT_H
 #define ENGINE_ICOMPONENT_H
 
-#include "../support_class/ecs_typedef.h"
+#include "ecs_typedef.h"
 #include "../utils/util_counter.h"
-#include "../container/ipool_object.h"
 
 namespace ECS
 {

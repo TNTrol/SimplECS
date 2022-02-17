@@ -28,9 +28,9 @@ namespace ECS
         public:
             StackAllocator(const size_t, void *ptr);
 
-            ~StackAllocator() override;
+            ~StackAllocator();
 
-            void free(void *ptr) override;
+            void free(const void *ptr) override;
 
             void *allocate(size_t size) override;
 

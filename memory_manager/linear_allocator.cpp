@@ -6,7 +6,7 @@
 
 #define TYPE char
 
-ECS::Memory::LinearAllocator::LinearAllocator(size_t size) : IAllocator(size, new TYPE[size]), m_curr(0)
+ECS::Memory::LinearAllocator::LinearAllocator(size_t size, void *ptr) : IAllocator(size, ptr), m_curr(0)
 {
     if (!m_first)
     {
@@ -19,14 +19,14 @@ ECS::Memory::LinearAllocator::~LinearAllocator()
     delete[] (TYPE *) m_first;
 }
 
-void ECS::Memory::LinearAllocator::free(void *ptr)
+void ECS::Memory::LinearAllocator::free(const void *ptr)
 {
 
 }
 
 void *ECS::Memory::LinearAllocator::allocate(size_t size)
 {
-    if (m_curr + size > m_size)
+    if (m_curr + size > m_max_size)
     {
         return nullptr;
     }

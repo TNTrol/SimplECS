@@ -9,32 +9,23 @@ ECS::ComponentManager::ComponentManager(const uint32_t max_entity,
                                         Memory::IAllocator *allocator) :
         m_grow(grow),
         m_max_entity(max_entity),
-        m_count_type(Util::get<IComponent>() - 1),
-        m_allocator(allocator)
+        m_allocator(allocator),
+        m_components(max_entity, grow)
 {
-    m_components.resize(max_entity);
-    m_pool.resize(m_count_type);
-    for (int i = 0; i < m_count_type; ++i)
-    {
-        m_pool[i] = nullptr;
-    }
+    m_components_of_entity.resize(max_entity);
 }
 
 ECS::ComponentManager::~ComponentManager()
 {
-    for (int i = 0; i < m_count_type; ++i)
+    for(auto pool: m_pool)
     {
-        delete m_pool[i];
-    }
-    for (int i = 0; i < m_components.size(); ++i)
-    {
-        // delete m_components[i]; //todo
+        delete pool;
     }
 }
 
 void ECS::ComponentManager::removeAllComponents(const EntityID entity_id) // todo
 {
-//    HashContainer *components = m_components[entity_id];
+//    HashContainer *components = m_components_of_entity[entity_id];
 //    int size;
 //    if(components)
 //    {
@@ -44,17 +35,17 @@ void ECS::ComponentManager::removeAllComponents(const EntityID entity_id) // tod
 //            m_pool[typeId]->remove(components->removeComponent(typeId));
 //        }
 //        delete components;
-//        m_components[entity_id] = nullptr;
+//        m_components_of_entity[entity_id] = nullptr;
 //    }
 }
 
 void ECS::ComponentManager::addComponent(EntityID entityId, ECS::IComponent *component)
 {
-//    HashContainer *components = m_components[entityId];
+//    HashContainer *components = m_components_of_entity[entityId];
 //    if(!components)
 //    {
 //        components = new ComponentsOfEntity(m_count_type);
-//        m_components[entityId] = components;
+//        m_components_of_entity[entityId] = components;
 //    }
 //    components->addComponent(component);
 }

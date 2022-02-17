@@ -5,7 +5,7 @@
 #ifndef ENGINE_UTIL_COUNTER_H
 #define ENGINE_UTIL_COUNTER_H
 
-#include "../support_class/ecs_typedef.h"
+#include "../ecs_engine_data/ecs_typedef.h"
 
 namespace ECS
 {
@@ -15,7 +15,7 @@ namespace ECS
         static Index get()
         {
             static Index index = 0;
-            return ++index;
+            return index++;
         }
 
         template<class T>

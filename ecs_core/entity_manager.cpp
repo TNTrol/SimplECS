@@ -12,22 +12,16 @@ ECS::EntityManager::EntityManager(ComponentManager *component_manager,
         m_component_manager(component_manager),
         m_count_destroy(0),
         m_entity(max_count_entity, grow),
-        m_count_type(Util::get<IEntity>() - 1),
         m_allocator(allocator)
 {
-    m_pool.resize(m_count_type);
     m_destroy_entity.resize(DESTROY_SIZE_STACK);
-    for (int i = 0; i < m_count_type; ++i)
-    {
-        m_pool[i] = nullptr;
-    }
 }
 
 ECS::EntityManager::~EntityManager()
 {
-    for (int i = 0; i < m_count_type; ++i)
+    for (auto pool: m_pool)
     {
-        delete m_pool[i];
+        delete pool;
     }
 }
 

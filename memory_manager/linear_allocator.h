@@ -16,11 +16,11 @@ namespace ECS
         private:
             size_t m_curr;
         public:
-            LinearAllocator(const size_t size);
+            LinearAllocator(const size_t size, void *ptr);
 
-            ~LinearAllocator() override;
+            ~LinearAllocator();
 
-            void free(void *ptr) override;
+            void free(const void *ptr) override;
 
             void *allocate(size_t size) override;
 

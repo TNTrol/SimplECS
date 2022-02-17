@@ -5,7 +5,7 @@
 #ifndef ENGINE_ISYSTEM_H
 #define ENGINE_ISYSTEM_H
 
-#include "../support_class/ecs_typedef.h"
+#include "ecs_typedef.h"
 #include "../utils/util_counter.h"
 
 namespace ECS

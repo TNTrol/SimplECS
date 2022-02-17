@@ -5,7 +5,7 @@
 #ifndef ENGINE_IENTITY_H
 #define ENGINE_IENTITY_H
 
-#include "../support_class/ecs_typedef.h"
+#include "ecs_typedef.h"
 #include "../utils/util_counter.h"
 
 class EntityManager;
@@ -17,8 +17,8 @@ namespace ECS
         friend class EntityManager;
 
     private:
-        EntityID m_id;
-        bool m_active;
+        EntityID m_id; //= Util::get<IEntity>();
+        bool m_active = false;
     public:
         //virtual ~IEntity();
         virtual EntityTypeID getType() = 0;

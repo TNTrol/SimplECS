@@ -5,7 +5,7 @@
 #ifndef ENGINE_ENTITY_H
 #define ENGINE_ENTITY_H
 
-#include "../support_class/ecs_typedef.h"
+#include "ecs_typedef.h"
 #include "../utils/util_counter.h"
 #include "ientity.h"
 

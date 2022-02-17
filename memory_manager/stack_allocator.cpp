@@ -22,30 +22,30 @@ ECS::Memory::StackAllocator::~StackAllocator()
     delete[] (TYPE *) m_first;
 }
 
-void ECS::Memory::StackAllocator::free(void *ptr)
+void ECS::Memory::StackAllocator::free(const void *ptr)
 {
     if (!ptr)
     {
         return;
     }
-    TYPE *s_ptr = (TYPE *) ptr - sizeof(size_o);
+    TYPE *s_ptr = (TYPE *) ptr - sizeof(uint32_t);
     --m_count_object;
-    m_use_size -= (static_cast<size_t>(*s_ptr) + sizeof(size_o));
+    m_use_size -= (static_cast<size_t>(*s_ptr) + sizeof(uint32_t));
     m_free_parts.push({static_cast<size_t>(*s_ptr), s_ptr});
 }
 
 void *ECS::Memory::StackAllocator::allocate(size_t size)
 {
-    if (m_use_size + size + sizeof(size_o) >= m_size)
+    if (m_use_size + size + sizeof(uint32_t) >= m_max_size)
     {
         throw;// std::invalid_argument("Dont allocate memory\n");
     }
     char *new_obj = NULL;
-    if (m_curr + size + sizeof(size_o) < m_size)
+    if (m_curr + size + sizeof(uint32_t) < m_max_size)
     {
         new_obj = (TYPE *) m_first + m_curr;
-        m_curr += size + sizeof(size_o);
-        m_use_size += size + sizeof(size_o);
+        m_curr += size + sizeof(uint32_t);
+        m_use_size += size + sizeof(uint32_t);
     }
     else if (!m_free_parts.empty())
     {
@@ -60,10 +60,10 @@ void *ECS::Memory::StackAllocator::allocate(size_t size)
     }
     if (new_obj)
     {
-        new(new_obj) size_o(size);
+        new(new_obj) uint32_t (size);
         ++m_count_object;
         //m_use_size += size + sizeof(size_o);
-        new_obj += sizeof(size_o);
+        new_obj += sizeof(uint32_t);
     }
     return new_obj;
 }
