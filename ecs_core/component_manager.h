@@ -32,7 +32,7 @@ namespace ECS
         template<class T>
         Pool<IComponent> *getContainer()
         {
-            if(T::STATIC_TYPE >= m_pool.capacity())
+            if (T::STATIC_TYPE >= m_pool.capacity())
             {
                 m_pool.resize(m_pool.capacity() + T::STATIC_TYPE - m_pool.capacity() + 1);
             }
@@ -49,10 +49,10 @@ namespace ECS
 
         ~ComponentManager();
 
-        void removeAllComponents(EntityID entity_id);
+        void removeAllComponentsOfEntity(EntityID entity_id);
 
         template<class T>
-        T *getComponentOfEntity(const EntityID entity_id)
+        T *getComponentOfEntity(const EntityID entity_id) //todo iterator
         {
             return m_components_of_entity[entity_id][T::STATIC_TYPE];
         }
@@ -75,7 +75,20 @@ namespace ECS
         void destroyComponent(const EntityID entityId)
         {
             ComponentTypeID type_id = T::STATIC_TYPE;
-            // m_pool[type_id]->remove(m_components_of_entity[entityId]->removeComponent(type_id)); todo
+            if (m_components_of_entity.capacity() <= entityId ||
+                m_components_of_entity[entityId].capacity() <= type_id ||
+                m_components_of_entity[entityId][type_id] == UINT32_MAX)
+            {
+                return;
+            }
+            IComponent *component = m_components.get(m_components_of_entity[entityId][type_id]);
+            if(!component)
+            {
+                return;
+            }
+            m_pool[entityId]->remove(component);
+            m_components.remove(m_components_of_entity[entityId][type_id]);
+            m_components_of_entity[entityId][type_id] = 0;
         }
     };
 

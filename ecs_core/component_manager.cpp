@@ -23,25 +23,26 @@ ECS::ComponentManager::~ComponentManager()
     }
 }
 
-void ECS::ComponentManager::removeAllComponents(const EntityID entity_id) // todo
+void ECS::ComponentManager::removeAllComponentsOfEntity(EntityID entity_id) // todo
 {
-//    HashContainer *components = m_components_of_entity[entity_id];
-//    int size;
-//    if(components)
-//    {
-//        size = components->size();
-//        for(ComponentTypeID typeId = 0; typeId < size; ++typeId)
-//        {
-//            m_pool[typeId]->remove(components->removeComponent(typeId));
-//        }
-//        delete components;
-//        m_components_of_entity[entity_id] = nullptr;
-//    }
+    if(m_components_of_entity.capacity() <= entity_id || m_components_of_entity[entity_id].capacity() == 0)
+    {
+        return;
+    }
+    for(ComponentTypeID component_id: m_components_of_entity[entity_id])
+    {
+        if(component_id == UINT32_MAX)
+        {
+            continue;
+        }
+
+    }
+
 }
 
 void ECS::ComponentManager::addComponent(EntityID entityId, ECS::IComponent *component)
 {
-//    HashContainer *components = m_components_of_entity[entityId];
+//    HashContainer *components = m_components_of_entity[entityId];  // todo
 //    if(!components)
 //    {
 //        components = new ComponentsOfEntity(m_count_type);

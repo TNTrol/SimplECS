@@ -33,7 +33,7 @@ void ECS::EntityManager::removeDestroyedEntity()
         entity = m_entity.remove(m_destroy_entity[i]);
         if (entity)
         {
-            m_component_manager->removeAllComponents(entity->getId());
+            m_component_manager->removeAllComponentsOfEntity(entity->getId());
             m_pool[entity->getType()]->remove(entity);
         }
     }

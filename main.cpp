@@ -4,6 +4,7 @@
 #include "./utils/util_counter.h"
 #include "ecs_engine_data/ecs_typedef.h"
 #include "./ecs_core/entity_manager.h"
+#include "./ecs_core/component_manager.h"
 
 #include "ex.h"
 
@@ -37,58 +38,73 @@ union node_u
     uint8_t arr[9];
 };
 
+
+class Base
+{
+private:
+  int a;
+public:
+  int get_a()
+  {
+    return a;
+  }
+};
+
+class C1: public Base
+{
+private:
+  char s;
+public:
+  int get_s()
+  {
+    return s;
+  }
+};
+
+int *func(int N)
+{
+    int a = 0, b = 4;
+    int arr[N];
+    int c = a + b;
+    return arr;
+}
+
 using namespace ECS;
 int main()
 {
     char *b = new char[30];
-//    auto *e4 = new(b) ECS::Entity<int>();
-//    auto *e5 = new(b + sizeof(ECS::Entity<int>)) ECS::Entity<int>();
-//    auto *l3 = new ECS::Entity<long>();
-//    auto *e3 = new ECS::Entity<float>();
     Example<10> arr;
 
-//    std::cout << "Hello, World!" << ECS::Component<int>::STATIC_TYPE <<" " <<  ECS::Component<float>::STATIC_TYPE<<std::endl;
-//    ECS::Component<int> *a = new ECS::Component<int>();
-//    ECS::Component<long> *b = new ECS::Component<long>();
-//    std::stack<float> stack;
-//    std::queue<int> q;
-//    std::vector<int> vec;
-//    std::cout << sizeof(unsigned int );
-//    ECS::Util::HashContainer<ECS::IEntity> container(10, 10);
-//    container.add(e);
-//    container.add(e2);
     ECS::Memory::IAllocator *allocator = new ECS::Memory::StackAllocator(1000, new char[1000]);
-//    ECS::Pool<ECS::IEntity> *pool = new ECS::Pool<ECS::IEntity>(allocator, sizeof(ECS::Entity<int>), 8);
-//    ECS::Entity<int> *e = new(pool->create()) ECS::Entity<int>();
-//    ECS::Entity<int> *e2 = new(pool->create()) ECS::Entity<int>();
-//    std::cout << sizeof(e) << "\t" << sizeof(*pool) << "\t" << sizeof(ECS::Memory::PoolAllocator) <<"\t" << sizeof(ECS::Memory::IAllocator)<< "\t" << sizeof(pool) << std::endl;
-//    e->setActive(true);
-//    e2->setActive(true);
-////    for (ECS::IEntity  *e1: (*pool))
-////    {
-////        std::cout << "H\n";
-////        e1->isActive();
-////    }
-//    for(auto it = pool->begin<ECS::Entity<int>>(); it != pool->end<ECS::Entity<int>>(); ++it)
-//    {
-//        ECS::Entity<int> *e = *it;
-//        std::cout << "H\n";
-//    }
-
     ECS::EntityManager entityManager(nullptr, 8, 8, allocator);
-    ECS::Entity<int> *e = entityManager.createEntity<ECS::Entity<int>>();
-    ECS::Entity<int> *e2 = entityManager.createEntity<ECS::Entity<int>>();
-    ECS::Entity<float> *ef = entityManager.createEntity<ECS::Entity<float>>();
-//    for(auto it = entityManager.getContainer<Entity<int>>()->begin<ECS::Entity<int>>(); it != entityManager.getContainer<Entity<int>>()->end<ECS::Entity<int>>(); ++it)
-//    {
-//        ECS::Entity<int> *e = *it;
-//        std::cout << "H\n";
-//    }
+    auto *e = entityManager.createEntity<ECS::Entity<int>>();
+    auto *e2 = entityManager.createEntity<ECS::Entity<int>>();
+    auto *ef = entityManager.createEntity<ECS::Entity<float>>();
     for(auto  it = entityManager.begin<Entity<float>>(); it != entityManager.end<Entity<float>>(); ++it)
     {
+        (*it)->setActive(true);
         std::cout << "H\n";
-        std::cout << sizeof(it) << "\t" << sizeof(entityManager) << "\t" << sizeof(Util::HashContainer<int>);
+        std::cout << sizeof(it) << "\t" << sizeof(entityManager) << "\t" << sizeof(Util::HashContainer<int>) << "\t" << sizeof(C1);
     }
+    std::vector<int> vec(10, 1);
 
+    std::cout << "\n" << sizeof(ComponentManager) << "\t" << sizeof(Util::HashContainer<IComponent> ) << "\t" << vec.size();
+    /**
+     *
+     * int arr[3];
+     * int arr3[3][10];
+     * memcpy(arr3, arr_src, sizeof(arr3));
+     *
+     * int **arr_temp = new int*[N];
+     * for(....)
+     * {
+     *  arr_temp[i] = new int[N];
+     * }
+     * ...
+     * for(int i = 0; i < N; ++i)
+     * {
+     *      memcpy(arr_temp[i], arr_src[i], sizeof(int) * N);
+     * }
+     */
     return 0;
 }
