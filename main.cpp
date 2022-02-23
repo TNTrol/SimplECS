@@ -61,14 +61,6 @@ public:
   }
 };
 
-int *func(int N)
-{
-    int a = 0, b = 4;
-    int arr[N];
-    int c = a + b;
-    return arr;
-}
-
 using namespace ECS;
 int main()
 {
@@ -76,7 +68,8 @@ int main()
     Example<10> arr;
 
     ECS::Memory::IAllocator *allocator = new ECS::Memory::StackAllocator(1000, new char[1000]);
-    ECS::EntityManager entityManager(nullptr, 8, 8, allocator);
+    ComponentManager componentManager(8, 8, allocator);
+    ECS::EntityManager entityManager(&componentManager, 8, 8, allocator);
     auto *e = entityManager.createEntity<ECS::Entity<int>>();
     auto *e2 = entityManager.createEntity<ECS::Entity<int>>();
     auto *ef = entityManager.createEntity<ECS::Entity<float>>();
@@ -88,7 +81,10 @@ int main()
     }
     std::vector<int> vec(10, 1);
 
-    std::cout << "\n" << sizeof(ComponentManager) << "\t" << sizeof(Util::HashContainer<IComponent> ) << "\t" << vec.size();
+    std::cout << "\n" << sizeof(ComponentManager) << "\t" << sizeof(Util::HashContainer<IComponent> ) << "\t" << sizeof(ComponentManager::Iterator);
+
+    auto *c = componentManager.createComponent<Component<float>>(ef->getType());
+    auto *c2 = componentManager.createComponent<Component<int>>(e->getType());
     /**
      *
      * int arr[3];

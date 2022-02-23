@@ -19,6 +19,42 @@ namespace ECS
 {
     class ComponentManager
     {
+    public:
+        template<class T>
+        using ComponentIterator = Pool<IComponent>::Iterator<T>;
+
+        class Iterator
+        {
+        private:
+            ComponentManager *manager;
+            ComponentTypeID m_current;
+            EntityID m_id;
+        public:
+            Iterator(ComponentManager *componentManager, EntityID id, ComponentTypeID current = 0) :
+                    manager(componentManager),
+                    m_id(id),
+                    m_current(current)
+            {}
+
+            IComponent *operator*() const;
+
+            IComponent *operator->();
+
+            Iterator &operator++();
+
+            Iterator operator++(int);
+
+            friend bool operator==(const Iterator &a, const Iterator &b)
+            {
+                return a.m_id == b.m_id && a.m_current == b.m_current;
+            }
+
+            friend bool operator!=(const Iterator &a, const Iterator &b)
+            {
+                return a.m_id != b.m_id || a.m_current != b.m_current;
+            }
+        };
+
     protected:
         Util::HashContainer<IComponent> m_components;
         std::vector<Pool<IComponent> *> m_pool;
@@ -32,9 +68,9 @@ namespace ECS
         template<class T>
         Pool<IComponent> *getContainer()
         {
-            if (T::STATIC_TYPE >= m_pool.capacity())
+            if (T::STATIC_TYPE >= m_pool.size())
             {
-                m_pool.resize(m_pool.capacity() + T::STATIC_TYPE - m_pool.capacity() + 1);
+                m_pool.resize(T::STATIC_TYPE + 1);
             }
             if (!m_pool[T::STATIC_TYPE])
             {
@@ -52,7 +88,7 @@ namespace ECS
         void removeAllComponentsOfEntity(EntityID entity_id);
 
         template<class T>
-        T *getComponentOfEntity(const EntityID entity_id) //todo iterator
+        T *getComponentOfEntity(const EntityID entity_id) // todo
         {
             return m_components_of_entity[entity_id][T::STATIC_TYPE];
         }
@@ -60,13 +96,12 @@ namespace ECS
         template<class T, class... ARGS>
         T *createComponent(const EntityID entity_id, ARGS &&... args)
         {
-            IComponent *component_ptr = getContainer(T::STATIC_TYPE)->create();
+            IComponent *component_ptr = getContainer<T>()->create();
             if (!component_ptr)
             {
                 return nullptr;
             }
-            IComponent *component = new(component_ptr) T(std::forward<ARGS>(args)...);
-            component->m_owner = entity_id;
+            T *component = new(component_ptr) T(std::forward<ARGS>(args)...);
             addComponent(entity_id, component);
             return component;
         }
@@ -75,20 +110,42 @@ namespace ECS
         void destroyComponent(const EntityID entityId)
         {
             ComponentTypeID type_id = T::STATIC_TYPE;
-            if (m_components_of_entity.capacity() <= entityId ||
-                m_components_of_entity[entityId].capacity() <= type_id ||
+            if (m_components_of_entity.size() <= entityId ||
+                m_components_of_entity[entityId].size() <= type_id ||
                 m_components_of_entity[entityId][type_id] == UINT32_MAX)
             {
                 return;
             }
             IComponent *component = m_components.get(m_components_of_entity[entityId][type_id]);
-            if(!component)
+            if (!component)
             {
                 return;
             }
             m_pool[entityId]->remove(component);
             m_components.remove(m_components_of_entity[entityId][type_id]);
             m_components_of_entity[entityId][type_id] = 0;
+        }
+
+        Iterator beginAllComponentsOfEntity(EntityID entity_id)
+        {
+            return Iterator(this, entity_id);
+        }
+
+        Iterator endAllComponentsOfEntity(EntityID entity_id)
+        {
+            return Iterator(this, entity_id, m_components_of_entity[entity_id].size());
+        }
+
+        template<class T>
+        ComponentIterator<T> begin()
+        {
+            return getContainer<T>()->template begin<T>();
+        }
+
+        template<class T>
+        ComponentIterator<T> end()
+        {
+            return getContainer<T>()->template end<T>();
         }
     };
 

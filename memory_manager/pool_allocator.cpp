@@ -41,6 +41,10 @@ void *ECS::Memory::PoolAllocator::allocate(size_t size)
 
 void ECS::Memory::PoolAllocator::free(const void *ptr)
 {
+    if (ptr == nullptr)
+    {
+        return;
+    }
     uint32_t ind = (((char *) ptr) - ((char *) m_first)) / m_size_object;
     if (ptr < m_offsets || ind >= m_max_count || m_offsets[ind].prev == 0xFFFFFFFF)
     {
@@ -99,7 +103,8 @@ void ECS::Memory::PoolAllocator::clear()
 
 ECS::Memory::PoolAllocator::Iterator ECS::Memory::PoolAllocator::begin()
 {
-    return ECS::Memory::PoolAllocator::Iterator(m_offsets, m_first, (uint32_t) m_count_object, m_head, m_size_object, m_stack);
+    return ECS::Memory::PoolAllocator::Iterator(m_offsets, m_first, (uint32_t) m_count_object, m_head, m_size_object,
+                                                m_stack);
 }
 
 ECS::Memory::PoolAllocator::Iterator ECS::Memory::PoolAllocator::end()

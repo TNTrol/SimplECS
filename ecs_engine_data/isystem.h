@@ -10,17 +10,22 @@
 
 namespace ECS
 {
+    class SystemManager;
+
     class ISystem
     {
-    protected:
-        SystemID m_id = util::get<ISystem>();
+        friend SystemManager;
+    private:
+        bool m_enable = true;
     public:
-        inline SystemID getId()
-        {
-            return m_id;
-        }
 
         virtual SystemTypeID getType() = 0;
+
+        virtual void preUpdate() = 0;
+
+        virtual void update() = 0;
+
+        virtual void postUpdate() = 0;
     };
 }
 #endif //ENGINE_ISYSTEM_H

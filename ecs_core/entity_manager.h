@@ -42,7 +42,6 @@ namespace ECS
             }
             if (!m_pool[T::STATIC_TYPE])
             {
-                size_t size = ENTITY_SIZE_STACK * sizeof(T);
                 m_pool[T::STATIC_TYPE] = new Pool<IEntity>(m_allocator, sizeof(T), COUNT_ENTITY_TAG);
             }
             return m_pool[T::STATIC_TYPE];
