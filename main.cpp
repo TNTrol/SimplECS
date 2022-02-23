@@ -83,8 +83,22 @@ int main()
 
     std::cout << "\n" << sizeof(ComponentManager) << "\t" << sizeof(Util::HashContainer<IComponent> ) << "\t" << sizeof(ComponentManager::Iterator);
 
-    auto *c = componentManager.createComponent<Component<float>>(ef->getType());
-    auto *c2 = componentManager.createComponent<Component<int>>(e->getType());
+    auto *c = componentManager.createComponent<Component<float>>(ef->getId());
+    auto *c2 = componentManager.createComponent<Component<int>>(e->getId());
+    auto *c3 = componentManager.createComponent<Component<float>>(e->getId());
+    for(auto it = componentManager.begin<Component<int>>(); it != componentManager.end<Component<int>>(); ++it)
+    {
+        IComponent *component = *(it);
+        std::cout << "HA";
+    }
+    std::cout << std::endl;
+
+    auto end = componentManager.endAllComponentsOfEntity(e->getId());
+    for(auto it = componentManager.beginAllComponentsOfEntity(e2->getId()); it != componentManager.endAllComponentsOfEntity(e2->getId()); ++it)
+    {
+        IComponent *component = *(it);
+        std::cout << "La";
+    }
     /**
      *
      * int arr[3];

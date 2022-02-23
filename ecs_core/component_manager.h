@@ -46,12 +46,12 @@ namespace ECS
 
             friend bool operator==(const Iterator &a, const Iterator &b)
             {
-                return a.m_id == b.m_id && a.m_current == b.m_current;
+                return a.m_current == b.m_current;
             }
 
             friend bool operator!=(const Iterator &a, const Iterator &b)
             {
-                return a.m_id != b.m_id || a.m_current != b.m_current;
+                return a.m_current != b.m_current;
             }
         };
 
@@ -126,15 +126,9 @@ namespace ECS
             m_components_of_entity[entityId][type_id] = 0;
         }
 
-        Iterator beginAllComponentsOfEntity(EntityID entity_id)
-        {
-            return Iterator(this, entity_id);
-        }
+        Iterator beginAllComponentsOfEntity(EntityID entity_id);
 
-        Iterator endAllComponentsOfEntity(EntityID entity_id)
-        {
-            return Iterator(this, entity_id, m_components_of_entity[entity_id].size());
-        }
+        Iterator endAllComponentsOfEntity(EntityID entity_id);
 
         template<class T>
         ComponentIterator<T> begin()

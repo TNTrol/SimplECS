@@ -55,6 +55,24 @@ void ECS::ComponentManager::addComponent(EntityID entityId, ECS::IComponent *com
     m_components_of_entity[entityId][componentTypeId] = component->getId();
 }
 
+ECS::ComponentManager::Iterator ECS::ComponentManager::endAllComponentsOfEntity(ECS::EntityID entity_id)
+{
+    return Iterator(this, entity_id, m_components_of_entity[entity_id].size());
+}
+
+ECS::ComponentManager::Iterator ECS::ComponentManager::beginAllComponentsOfEntity(ECS::EntityID entity_id)
+{
+    ComponentTypeID type = 0;
+    for(; type < m_components_of_entity[entity_id].size(); ++type)
+    {
+        if(m_components_of_entity[entity_id][type] != UINT32_MAX)
+        {
+            break;
+        }
+    }
+    return Iterator(this, entity_id, type);
+}
+
 ECS::IComponent *ECS::ComponentManager::Iterator::operator*() const
 {
     ComponentID id = manager->m_components_of_entity[m_id][m_current];
@@ -71,14 +89,13 @@ ECS::ComponentManager::Iterator &ECS::ComponentManager::Iterator::operator++()
 {
     if (m_current < manager->m_components_of_entity[m_id].size())
     {
-        for (; m_current < manager->m_components_of_entity[m_id].size(); ++m_current)
+        for (++m_current; m_current < manager->m_components_of_entity[m_id].size(); ++m_current)
         {
             if (manager->m_components_of_entity[m_id][m_current] != UINT32_MAX)
             {
                 return *this;
             }
         }
-        ++m_current;
     }
     return *this;
 }
