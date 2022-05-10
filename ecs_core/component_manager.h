@@ -88,9 +88,14 @@ namespace ECS
         void removeAllComponentsOfEntity(EntityID entity_id);
 
         template<class T>
-        T *getComponentOfEntity(const EntityID entity_id) // todo
+        T *getComponentOfEntity(const EntityID entity_id)
         {
-            return m_components_of_entity[entity_id][T::STATIC_TYPE];
+            if (T::STATIC_TYPE >= m_components_of_entity[entity_id].size() ||
+                m_components_of_entity[entity_id][T::STATIC_TYPE] != UINT32_MAX)
+            {
+                return nullptr;
+            }
+            return m_components.get(m_components_of_entity[entity_id][T::STATIC_TYPE]);
         }
 
         template<class T, class... ARGS>

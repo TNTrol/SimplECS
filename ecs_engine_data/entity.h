@@ -14,10 +14,10 @@ namespace ECS
     template<class E>
     class Entity : public IEntity
     {
-    public:// todo
-//        void operator delete(void *) = delete; // todo
-//
-//        void operator delete[](void *) = delete;
+    public:
+        void operator delete(void *) = delete;
+
+        void operator delete[](void *) = delete;
 
     public:
         static const EntityTypeID STATIC_TYPE;

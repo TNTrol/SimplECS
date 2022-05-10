@@ -16,6 +16,9 @@ namespace ECS
     {
         friend SystemManager;
     private:
+        Priority m_priority = 0;
+        float m_update_interval = 0.0f;
+        float m_last_update = 0.0f;
         bool m_enable = true;
     public:
 

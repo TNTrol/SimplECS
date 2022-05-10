@@ -17,6 +17,8 @@ namespace ECS
     typedef Number EntityTypeID;
     typedef Number ComponentTypeID;
     typedef Number SystemTypeID;
+    typedef Number Priority;
+    typedef Number EventTypeID;
 }
 
 #endif //ENGINE_ECS_TYPEDEF_H

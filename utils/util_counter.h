@@ -17,22 +17,6 @@ namespace ECS
             static Index index = 0;
             return index++;
         }
-
-        template<class T>
-        class Counter //todo
-        {
-            static Index index;
-        public:
-            static Index getAndIncrement()
-            {
-                return index++;
-            }
-
-            static Index get()
-            {
-                return index;
-            }
-        };
     }
 }
 
