@@ -16,6 +16,10 @@ namespace ECS
         class Event: public IEvent
         {
         public:
+            void operator delete(void *) = delete;
+
+            void operator delete[](void *) = delete;
+
             static const EventTypeID STATIC_EVENT_TYPE_ID;
 
             Event() : IEvent(STATIC_EVENT_TYPE_ID)

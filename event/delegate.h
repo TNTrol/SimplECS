@@ -29,14 +29,14 @@ namespace ECS
         template<class C, class E>
         class EventDelegate : public IDelegate
         {
-            typedef void(C::*Callback)(int);
+            typedef void(C::*Callback)(const E * const);
 
             C *m_receiver;
             Callback m_callback;
 
         public:
 
-            EventDelegate(C *receiver, Callback &callbackFunction) :
+            EventDelegate(C *receiver, const Callback &callbackFunction) :
                     m_receiver(receiver),
                     m_callback(callbackFunction)
             {}
@@ -56,7 +56,7 @@ namespace ECS
             {
                 if (other == nullptr || other->get_hash() != get_hash())
                     return false;
-                auto e = (EventDelegate<C, Callback> *) other;
+                auto e = (EventDelegate *) other;
                 return e->m_callback == this->m_callback && e->m_receiver == this->m_receiver;
             }
 

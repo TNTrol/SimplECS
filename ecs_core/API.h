@@ -19,12 +19,6 @@
 #define DESTROY_MAX 1000
 #define EVENT_MAX 1000
 
-namespace ECS
-{
-    class Engine
-    {
 
-    };
-}
 
 #endif //ENGINE_API_H
