@@ -8,7 +8,7 @@
 #include <algorithm>
 #include "vector"
 #include "list"
-#include "Delegate.h"
+#include "delegate.h"
 #include "ievent.h"
 
 namespace ECS
@@ -18,37 +18,28 @@ namespace ECS
         class Dispatcher
         {
         private:
-            std::list<IDelegate *> m_delegates;
-            std::list<IDelegate *> m_remove_delegates;
+            struct container
+            {
+                IDelegate *m_delegate;
+                bool m_active;
+
+                container(IDelegate *delegate) :
+                        m_delegate(delegate),
+                        m_active(true)
+                {}
+            };
+
+        private:
+            std::list<container> m_delegates;
         public:
-            Dispatcher(uint32_t max)
+            Dispatcher()
             {}
 
-            void invoke(IEvent *event)
-            {
-                for (auto delegate: m_delegates)
-                {
-                    delegate->invoke(event);
-                }
-            }
+            void invoke(IEvent *event);
 
-            IDelegate* remove(IDelegate* delegate)
-            {
-                auto result = std::find_if(this->m_delegates.begin(), this->m_delegates.end(),
-                                           [&](const IDelegate* other)
-                                           {
-                                               return other->operator==(delegate);
-                                           });
-                if (result != m_delegates.end())
-                {
+            void remove(IDelegate *delegate);
 
-                }
-            }
-
-            void add(IDelegate *delegate)
-            {
-                m_delegates.push_back(delegate);
-            }
+            void add(IDelegate *delegate);
 
         };
     }

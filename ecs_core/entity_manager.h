@@ -35,7 +35,6 @@ namespace ECS
         template<class T>
         inline Pool<IEntity> *getContainer()
         {
-            int a = T::STATIC_TYPE;
             if (T::STATIC_TYPE >= m_pool.size())
             {
                 m_pool.resize(m_pool.size() + (T::STATIC_TYPE + 1 - m_pool.size()) * 2);

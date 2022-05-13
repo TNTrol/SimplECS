@@ -11,7 +11,7 @@ namespace ECS
 {
     namespace Memory
     {
-        class LinearAllocator : IAllocator
+        class LinearAllocator : public IAllocator
         {
         private:
             size_t m_curr;

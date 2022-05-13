@@ -19,58 +19,6 @@
 #include "memory_manager/pool_allocator.h"
 #include "list"
 
-struct node_t
-{
-    uint32_t a;
-    uint32_t b;
-};
-
-struct node2_t
-{
-    uint64_t t;
-};
-
-union node_u
-{
-    struct
-    {
-        uint32_t a;
-        uint32_t b;
-    } node;
-    uint8_t arr[9];
-};
-
-
-class Base
-{
-private:
-  int a;
-public:
-  int get_a()
-  {
-    return a;
-  }
-};
-
-class C1: public Base
-{
-private:
-  char s;
-public:
-  int get_s()
-  {
-    return s;
-  }
-};
-
-struct Test
-{
-    std::vector<int> arr;
-    uint64_t t;
-};
-
-typedef void (*handler)(int);
-
 struct TestHandler
 {
     //typedef void (*Callback)(int);
@@ -78,43 +26,6 @@ struct TestHandler
     TestHandler(int x){ this->x = x;}
     void print(int y){ std::cout << x + y << std::endl;}
 };
-
-class IEventDelegate
-{
-public:
-
-    virtual inline void invoke(int) = 0;
-}; // class IEventDelegate
-
-template<class Class>
-class EventDelegate : public IEventDelegate
-{
-    typedef void(Class::*Callback)(int);
-
-    Class* m_Receiver;
-    Callback m_Callback;
-
-public:
-
-    EventDelegate(Class* receiver, Callback& callbackFunction) :
-            m_Receiver(receiver),
-            m_Callback(callbackFunction)
-    {}
-
-    void invoke(int a) override
-    {
-        (m_Receiver->*m_Callback)(a);
-    }
-
-}; // class EventDelegate
-
-template<class C, class E>
-inline IEventDelegate* RegisterEventCallback(C* obj, void(C::*Callback)(E))
-{
-
-    IEventDelegate* eventDelegate = new EventDelegate<C>(static_cast<C*>(obj), Callback);
-    return eventDelegate;
-}
 
 using namespace ECS;
 int main()
@@ -129,7 +40,7 @@ int main()
     {
         (*it)->setActive(true);
         std::cout << "H\n";
-        std::cout << sizeof(it) << "\t" << sizeof(entityManager) << "\t" << sizeof(Util::HashContainer<int>) << "\t" << sizeof(C1);
+        std::cout << sizeof(it) << "\t" << sizeof(entityManager) << "\t" << sizeof(Util::HashContainer<int>) << "\t" ;
     }
     std::vector<int> vec(10, 1);
 
@@ -149,17 +60,13 @@ int main()
     for(auto it = componentManager.beginAllComponentsOfEntity(e->getId()); it != componentManager.endAllComponentsOfEntity(e->getId()); ++it)
     {
         IComponent *component = *(it);
-        std::cout << "La " << sizeof(Test);
+        std::cout << "La\n";
     }
 
     std::cout << "\nTest Handler\n" << sizeof(std::list<void *>);
 
-    TestHandler testHandler1(10), testHandler2(30);
-//    EventDelegate<TestHandler> eventDelegate1(&testHandler1, testHandler1.print);
-//    handler *func1 = testHandler1.print;
-    //TestHandler::Callback h =  []( int b ){std::cout << b;};
-//    IEventDelegate *w =  RegisterEventCallback(&testHandler1, &TestHandler::print);
-//    w->invoke(10);
+
+
 
     return 0;
 }

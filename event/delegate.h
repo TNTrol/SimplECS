@@ -19,7 +19,11 @@ namespace ECS
 
             virtual bool operator==(const IDelegate *other) const = 0;
 
-            virtual uint32_t GetStaticEventTypeId() const = 0;
+            virtual uint32_t get_hash() const = 0;
+
+            virtual EventTypeID get_type_id() = 0;
+
+            virtual IDelegate* clone(void * = nullptr) = 0;
         };
 
         template<class C, class E>
@@ -27,22 +31,22 @@ namespace ECS
         {
             typedef void(C::*Callback)(int);
 
-            C *m_Receiver;
-            Callback m_Callback;
+            C *m_receiver;
+            Callback m_callback;
 
         public:
 
             EventDelegate(C *receiver, Callback &callbackFunction) :
-                    m_Receiver(receiver),
-                    m_Callback(callbackFunction)
+                    m_receiver(receiver),
+                    m_callback(callbackFunction)
             {}
 
             void invoke(const IEvent *const e) override
             {
-                (m_Receiver->*m_Callback)(reinterpret_cast<const E *const>(e));
+                (m_receiver->*m_callback)(reinterpret_cast<const E *const>(e));
             }
 
-            uint32_t GetStaticEventTypeId() const override
+            uint32_t get_hash() const override
             {
                 static const uint32_t DELEGATE_ID{typeid(C).hash_code() ^ typeid(Callback).hash_code()};
                 return DELEGATE_ID;
@@ -50,10 +54,20 @@ namespace ECS
 
             bool operator==(const IDelegate *other) const override
             {
-                if (other == nullptr || other->GetStaticEventTypeId() != GetStaticEventTypeId())
+                if (other == nullptr || other->get_hash() != get_hash())
                     return false;
                 auto e = (EventDelegate<C, Callback> *) other;
-                return e->m_Callback == this->m_Callback && e->m_Receiver == this->m_Receiver;
+                return e->m_callback == this->m_callback && e->m_receiver == this->m_receiver;
+            }
+
+            EventTypeID get_type_id() override
+            {
+                return E::STATIC_EVENT_TYPE_ID;
+            }
+
+            IDelegate* clone(void* ptr) override
+            {
+                return ptr ? new (ptr) EventDelegate<C, E>(m_receiver, m_callback) : new EventDelegate<C, E>(m_receiver, m_callback);
             }
         };
     }

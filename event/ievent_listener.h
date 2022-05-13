@@ -7,7 +7,7 @@
 
 #include "../ecs_core/API.h"
 #include "ievent.h"
-#include "Delegate.h"
+#include "delegate.h"
 #include "list"
 
 namespace ECS
