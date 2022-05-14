@@ -5,7 +5,7 @@
 #ifndef ENGINE_IEVENT_LISTENER_H
 #define ENGINE_IEVENT_LISTENER_H
 
-#include "../ecs_core/API.h"
+#include "../ecs/API.h"
 #include "ievent.h"
 #include "delegate.h"
 #include "list"

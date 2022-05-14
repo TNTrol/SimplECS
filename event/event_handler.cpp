@@ -3,7 +3,7 @@
 //
 
 #include "event_handler.h"
-#include "../memory_manager/linear_allocator.h"
+#include "../memory/linear_allocator.h"
 
 void ECS::Event::EventHandler::dispatch()
 {

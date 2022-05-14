@@ -6,11 +6,9 @@
 #define ENGINE_ENGINE_H
 
 #include "API.h"
-//#include "entity_manager.h"
-//#include "component_manager.h"
-//#include "system_manager.h"
 #include "../event/event_handler.h"
-#include "../memory_manager/iallocator.h"
+#include "../memory/iallocator.h"
+#include "../utils/timer.h"
 
 namespace ECS
 {
@@ -40,6 +38,7 @@ namespace ECS
         SystemManager *m_system_manager;
         Event::EventHandler *m_event_handler;
         Memory::IAllocator *m_global_memory;
+        Util::Timer *m_timer;
     private:
         template<class E>
         inline void subscribeEvent(Event::IDelegate &eventDelegate)
@@ -54,7 +53,7 @@ namespace ECS
 
         ~Engine();
 
-        void update();
+        void update(float ms);
 
         inline EntityManager *getEntityManager()
         { return m_entity_manager; }

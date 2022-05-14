@@ -7,13 +7,15 @@
 
 #include "vector"
 #include "../ecs_engine_data/isystem.h"
-#include "../memory_manager/iallocator.h"
+#include "../memory/iallocator.h"
+#include "engine.h"
 
 namespace ECS
 {
 
     class SystemManager
     {
+        friend Engine;
     private:
         std::vector<ISystem *> m_systems;
         std::vector<ISystem *> m_order;
@@ -36,12 +38,12 @@ namespace ECS
         }
 
     public:
-        SystemManager(Memory::IAllocator *allocator);
+        SystemManager(Memory::IAllocator *allocator = nullptr);
 
         ~SystemManager();
 
         template<class T, class... ARGS>
-        T *createSystem(ARGS &&... args) // todo resize
+        T *createSystem(ARGS &&... args)
         {
             T *ptr = m_allocator->allocate(sizeof(T));
             T *value = new(ptr) T(std::forward<ARGS>(args)...);

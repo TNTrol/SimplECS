@@ -70,7 +70,7 @@ ECS::ComponentManager::Iterator ECS::ComponentManager::beginAllComponentsOfEntit
             break;
         }
     }
-    return Iterator(this, entity_id, type);
+    return {this, entity_id, type};
 }
 
 ECS::IComponent *ECS::ComponentManager::Iterator::operator*() const

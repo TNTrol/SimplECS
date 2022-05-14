@@ -13,6 +13,10 @@ namespace ECS
     class Component : public IComponent
     {
     public:
+        void operator delete(void *) = delete;
+
+        void operator delete[](void *) = delete;
+    public:
         static const ComponentTypeID STATIC_TYPE;
     public:
         inline ComponentTypeID getType() override

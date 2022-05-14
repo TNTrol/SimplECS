@@ -13,6 +13,11 @@ namespace ECS
     class System : public ISystem
     {
     public:
+        void operator delete(void *) = delete;
+
+        void operator delete[](void *) = delete;
+
+    public:
         static const SystemTypeID STATIC_TYPE;
     public:
         SystemTypeID getType() override
@@ -22,6 +27,6 @@ namespace ECS
     };
 
     template<class T>
-    const SystemTypeID System<T>::STATIC_TYPE = util::get<ISystem>();
+    const SystemTypeID System<T>::STATIC_TYPE = Util::get<ISystem>();
 }
 #endif //ENGINE_SYSTEM_H

@@ -7,11 +7,10 @@
 
 #include "vector"
 #include "ievent.h"
-#include "../memory_manager/iallocator.h"
-#include "../memory_manager/pool_allocator.h"
+#include "../memory/iallocator.h"
 #include "dispatcher.h"
 #include "ievent_listener.h"
-#include "../ecs_core/API.h"
+#include "../ecs/API.h"
 
 namespace ECS
 {

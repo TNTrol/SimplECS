@@ -5,7 +5,7 @@
 #ifndef ENGINE_POOL_H
 #define ENGINE_POOL_H
 
-#include "../memory_manager/pool_allocator.h"
+#include "../memory/pool_allocator.h"
 
 namespace ECS
 {

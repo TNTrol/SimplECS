@@ -1,7 +1,7 @@
 //
 // Created by tntrol on 08.09.2021.
 //
-//#include "../ecs_core/entity_manager.h"
+//#include "../ecs/entity_manager.h"
 #ifndef ENGINE_IENTITY_H
 #define ENGINE_IENTITY_H
 

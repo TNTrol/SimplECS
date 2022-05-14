@@ -13,18 +13,22 @@ namespace ECS
     namespace Event
     {
         template<class T>
-        class Event: public IEvent
+        class Event : public IEvent
         {
         public:
             void operator delete(void *) = delete;
 
             void operator delete[](void *) = delete;
 
+        public:
+
             static const EventTypeID STATIC_EVENT_TYPE_ID;
+        public:
 
             Event() : IEvent(STATIC_EVENT_TYPE_ID)
             {}
         };
+
         template<class T>
         const EventTypeID Event<T>::STATIC_EVENT_TYPE_ID = Util::get<IEvent>();
     }

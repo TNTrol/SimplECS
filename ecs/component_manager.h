@@ -9,8 +9,8 @@
 #include "../ecs_engine_data/icomponent.h"
 #include "../container/pool.h"
 #include "../utils/hash_container.h"
-#include "../memory_manager/pool_allocator.h"
-#include "../memory_manager/stack_allocator.h"
+#include "../memory/pool_allocator.h"
+#include "../memory/stack_allocator.h"
 #include "API.h"
 
 #include "vector"
