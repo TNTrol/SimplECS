@@ -4,13 +4,18 @@
 
 #ifndef ENGINE_COMPONENT_H
 #define ENGINE_COMPONENT_H
+
 #include "icomponent.h"
 
 namespace ECS
 {
     template<class T>
-    class Component: public IComponent
+    class Component : public IComponent
     {
+    public:
+        void operator delete(void *) = delete;
+
+        void operator delete[](void *) = delete;
     public:
         static const ComponentTypeID STATIC_TYPE;
     public:
@@ -19,7 +24,8 @@ namespace ECS
             return STATIC_TYPE;
         }
     };
+
     template<class T>
-    const ComponentTypeID Component<T>::STATIC_TYPE = util::get<ComponentTypeIdS>();
+    const ComponentTypeID Component<T>::STATIC_TYPE = Util::get<IComponent>();
 }
 #endif //ENGINE_COMPONENT_H

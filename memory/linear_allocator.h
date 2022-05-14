@@ -4,22 +4,23 @@
 
 #ifndef ENGINE_LINEAR_ALLOCATOR_H
 #define ENGINE_LINEAR_ALLOCATOR_H
+
 #include "iallocator.h"
 
 namespace ECS
 {
     namespace Memory
     {
-        class LinearAllocator: IAllocator
+        class LinearAllocator : public IAllocator
         {
         private:
             size_t m_curr;
         public:
-            LinearAllocator(const size_t size);
+            LinearAllocator(const size_t size, void *ptr);
 
-            ~LinearAllocator() override;
+            ~LinearAllocator();
 
-            void free(void *ptr) override;
+            void free(const void *ptr) override;
 
             void *allocate(size_t size) override;
 
