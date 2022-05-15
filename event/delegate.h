@@ -19,17 +19,17 @@ namespace ECS
 
             virtual bool operator==(const IDelegate *other) const = 0;
 
-            virtual uint32_t get_hash() const = 0;
+            virtual size_t get_hash() const = 0;
 
             virtual EventTypeID get_type_id() = 0;
 
-            virtual IDelegate* clone(void * = nullptr) = 0;
+            virtual IDelegate *clone(void * = nullptr) = 0;
         };
 
         template<class C, class E>
         class EventDelegate : public IDelegate
         {
-            typedef void(C::*Callback)(const E * const);
+            typedef void(C::*Callback)(const E *const);
 
             C *m_receiver;
             Callback m_callback;
@@ -46,9 +46,9 @@ namespace ECS
                 (m_receiver->*m_callback)(reinterpret_cast<const E *const>(e));
             }
 
-            uint32_t get_hash() const override
+            size_t get_hash() const override
             {
-                static const uint32_t DELEGATE_ID{typeid(C).hash_code() ^ typeid(Callback).hash_code()};
+                static const size_t DELEGATE_ID{typeid(C).hash_code() ^ typeid(Callback).hash_code()};
                 return DELEGATE_ID;
             }
 
@@ -65,9 +65,10 @@ namespace ECS
                 return E::STATIC_EVENT_TYPE_ID;
             }
 
-            IDelegate* clone(void* ptr) override
+            IDelegate *clone(void *ptr) override
             {
-                return ptr ? new (ptr) EventDelegate<C, E>(m_receiver, m_callback) : new EventDelegate<C, E>(m_receiver, m_callback);
+                return ptr ? new(ptr) EventDelegate<C, E>(m_receiver, m_callback) : new EventDelegate<C, E>(m_receiver,
+                                                                                                            m_callback);
             }
         };
     }
