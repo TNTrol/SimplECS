@@ -2,8 +2,8 @@
 // Created by tntrol on 15.05.2022.
 //
 
-#ifndef ENGINE_EXTEND_MEMORY_H
-#define ENGINE_EXTEND_MEMORY_H
+#ifndef ENGINE_EXTEND_ALLOCATOR_H
+#define ENGINE_EXTEND_ALLOCATOR_H
 
 #include <functional>
 #include "iallocator.h"
@@ -108,4 +108,4 @@ namespace ECS
     }
 }
 
-#endif //ENGINE_EXTEND_MEMORY_H
+#endif //ENGINE_EXTEND_ALLOCATOR_H

@@ -17,7 +17,7 @@
 #include "event/delegate.h"
 #include "event/event_handler.h"
 #include "list"
-#include "memory/extend_memory.h"
+#include "memory/extend_allocator.h"
 #include "memory/linear_allocator.h"
 
 struct TestHandler
