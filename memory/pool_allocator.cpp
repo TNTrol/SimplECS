@@ -13,7 +13,7 @@ ECS::Memory::PoolAllocator::PoolAllocator(ECS::Memory::IAllocator *allocator, si
     setup();
 }
 
-void *ECS::Memory::PoolAllocator::allocate(size_t size)
+void *ECS::Memory::PoolAllocator::allocate(size_t)
 {
     void *t;
     if (m_curr < m_max_count)
@@ -31,7 +31,7 @@ void *ECS::Memory::PoolAllocator::allocate(size_t size)
         }
         m_curr++;
     }
-    else if(m_use_size + size >= m_max_size)
+    else if(m_use_size + m_size_object >= m_max_size)
     {
         return nullptr;
     }

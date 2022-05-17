@@ -14,32 +14,30 @@ namespace ECS
 {
     namespace Memory
     {
-        template<class Allocator>
-        class ExtendMemory : public IAllocator
+        class IFactoryAllocator
         {
         public:
-            class IFactoryAllocator
-            {
-            public:
-                virtual IAllocator* create() = 0;
-                virtual void delete_allocator(IAllocator *) = 0;
-            };
-        public:
-            using callback = std::function<Allocator*()>;//Allocator *(*)();
+            virtual IAllocator *create() = 0;
+
+            virtual void delete_allocator(IAllocator *) = 0;
+        };
+
+        class ExtendMemory : public IAllocator
+        {
         private:
-            std::vector<Allocator *> m_allocators;
-            IFactoryAllocator * const m_create;
+            std::vector<IAllocator *> m_allocators;
+            IFactoryAllocator *const m_create;
         public:
             ExtendMemory(IFactoryAllocator *create_allocator) :
-                    IAllocator(0, nullptr),
+                    IAllocator(UINT32_MAX, nullptr),
                     m_create(create_allocator)
             {
-                m_allocators.push_back((Allocator*)m_create->create());
+                m_allocators.push_back( m_create->create());
             }
 
             ~ExtendMemory()
             {
-                for (Allocator *allocator: m_allocators)
+                for (IAllocator *allocator: m_allocators)
                 {
                     m_create->delete_allocator(allocator);
                 }
@@ -48,7 +46,7 @@ namespace ECS
             void *allocate(size_t size) override
             {
                 void *ptr = nullptr;
-                for (Allocator *allocator: m_allocators)
+                for (IAllocator *allocator: m_allocators)
                 {
                     ptr = allocator->allocate(size);
                     if (ptr)
@@ -58,7 +56,7 @@ namespace ECS
                 }
                 if (!ptr)
                 {
-                    m_allocators.push_back( (Allocator*) m_create->create());
+                    m_allocators.push_back( m_create->create());
                     ptr = m_allocators.back()->allocate(size);
                 }
                 if (ptr)
@@ -72,11 +70,11 @@ namespace ECS
             void free(const void *ptr) override
             {
                 size_t size;
-                for (Allocator *allocator: m_allocators)
+                for (IAllocator *allocator: m_allocators)
                 {
                     size = allocator->get_use_size();
                     allocator->free(ptr);
-                    if(size != allocator->get_use_size())
+                    if (size != allocator->get_use_size())
                     {
                         m_count_object--;
                         m_use_size -= size - allocator->get_use_size();
@@ -87,7 +85,7 @@ namespace ECS
 
             void clear() override
             {
-                for (Allocator *allocator: m_allocators)
+                for (IAllocator *allocator: m_allocators)
                 {
                     allocator->clear();
                 }
@@ -95,12 +93,12 @@ namespace ECS
                 m_count_object = 0;
             }
 
-            typename std::vector<Allocator*>::iterator begin()
+            typename std::vector<IAllocator *>::iterator begin()
             {
                 return m_allocators.begin();
             }
 
-            typename std::vector<Allocator*>::iterator end()
+            typename std::vector<IAllocator *>::iterator end()
             {
                 return m_allocators.end();
             }

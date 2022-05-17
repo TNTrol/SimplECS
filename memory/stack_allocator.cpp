@@ -19,7 +19,6 @@ ECS::Memory::StackAllocator::StackAllocator(const size_t size, void *ptr) :
 
 ECS::Memory::StackAllocator::~StackAllocator()
 {
-    delete[] (TYPE *) m_first;
 }
 
 void ECS::Memory::StackAllocator::free(const void *ptr)

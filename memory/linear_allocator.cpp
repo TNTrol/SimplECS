@@ -15,9 +15,7 @@ ECS::Memory::LinearAllocator::LinearAllocator(size_t size, void *ptr) : IAllocat
 }
 
 ECS::Memory::LinearAllocator::~LinearAllocator()
-{
-    delete[] (TYPE *) m_first;
-}
+{}
 
 void ECS::Memory::LinearAllocator::free(const void *ptr)
 {

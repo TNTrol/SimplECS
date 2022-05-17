@@ -8,7 +8,7 @@
 #include "../ecs_engine_data/ecs_typedef.h"
 #include "../utils/hash_container.h"
 #include "../ecs_engine_data/ientity.h"
-#include "../container/pool.h"
+#include "../container/extend_pool.h"
 #include "../memory/pool_allocator.h"
 #include "../memory/stack_allocator.h"
 #include "component_manager.h"
@@ -22,10 +22,10 @@ namespace ECS
     {
     public:
         template<class T>
-        using EntityIterator = Pool<IEntity>::Iterator<T>;
+        using EntityIterator = Container::PoolContainer<T>;
     protected:
         Util::HashContainer<IEntity> m_entity;
-        std::vector<Pool<IEntity> *> m_pool;
+        std::vector<Container::ExtendPool<IEntity> *> m_pool;
         std::vector<EntityID> m_destroy_entity;
         ComponentManager *m_component_manager;
         Memory::IAllocator *m_allocator;
@@ -33,7 +33,7 @@ namespace ECS
         uint32_t m_count_destroy;
     private:
         template<class T>
-        inline Pool<IEntity> *getContainer()
+        inline Container::ExtendPool<IEntity> *getContainer()
         {
             if (T::STATIC_TYPE >= m_pool.size())
             {
@@ -41,7 +41,7 @@ namespace ECS
             }
             if (!m_pool[T::STATIC_TYPE])
             {
-                m_pool[T::STATIC_TYPE] = new Pool<IEntity>(m_allocator, sizeof(T), COUNT_ENTITY_TAG);
+                m_pool[T::STATIC_TYPE] = new Container::ExtendPool<IEntity>(m_allocator, sizeof(T), COUNT_ENTITY_TAG);
             }
             return m_pool[T::STATIC_TYPE];
         }
@@ -73,15 +73,9 @@ namespace ECS
         }
 
         template<class T>
-        EntityIterator<T> begin()
+        EntityIterator<T> getAllOfType()
         {
-            return getContainer<T>()->template begin<T>();
-        }
-
-        template<class T>
-        EntityIterator<T> end()
-        {
-            return getContainer<T>()->template end<T>();
+            return getContainer<T>()->template iterable<T>();
         }
     };
 
