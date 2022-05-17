@@ -5,9 +5,9 @@
 #ifndef ENGINE_ENTITY_MANAGER_H
 #define ENGINE_ENTITY_MANAGER_H
 
-#include "../ecs_engine_data/ecs_typedef.h"
+#include "../type/ecs_typedef.h"
 #include "../utils/hash_container.h"
-#include "../ecs_engine_data/ientity.h"
+#include "../type/ientity.h"
 #include "../container/extend_pool.h"
 #include "../memory/pool_allocator.h"
 #include "../memory/stack_allocator.h"

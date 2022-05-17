@@ -6,7 +6,7 @@
 #define ENGINE_HASH_CONTAINER_H
 
 #include "vector"
-#include "../ecs_engine_data/ecs_typedef.h"
+#include "../type/ecs_typedef.h"
 
 #define DICT_FLAG 0xFFFFFFFF
 

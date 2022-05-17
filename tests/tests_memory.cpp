@@ -28,7 +28,7 @@ void test_memory()
 
     TestMemory testMemory;
 
-    Memory::ExtendMemory<Memory::PoolAllocator> extendMemory(&testMemory);
+    Memory::ExtendMemory extendMemory(&testMemory);
     uint32_t *t = nullptr;
     for (int i = 0; i < 5; ++i)
     {
@@ -44,15 +44,6 @@ void test_memory()
 
     for (auto all: extendMemory)
     {
-        for (auto a: *all)
-        {
-            uint32_t *b = ((uint32_t *) a);
-            for (int i = 0; i < 4; ++i)
-            {
-                uint32_t c = b[i];
-                std::cout << c << std::endl;
-            }
-        }
     }
 
     extendMemory.free(t);
@@ -60,15 +51,6 @@ void test_memory()
     std::cout << "\nOutput\n";
     for (auto all: extendMemory)
     {
-        for (auto a: *all)
-        {
-            uint32_t *b = ((uint32_t *) a);
-            for (int i = 0; i < 4; ++i)
-            {
-                uint32_t c = b[i];
-                std::cout << c << std::endl;
-            }
-        }
     }
     uint32_t *t1 = (uint32_t *) extendMemory.allocate(4 * 4);
     t1[0] = 666;
@@ -78,14 +60,6 @@ void test_memory()
     std::cout << "\nOutput\n";
     for (auto all: extendMemory)
     {
-        for (auto a: *all)
-        {
-            uint32_t *b = ((uint32_t *) a);
-            for (int i = 0; i < 4; ++i)
-            {
-                uint32_t c = b[i];
-                std::cout << c << std::endl;
-            }
-        }
+        //todo
     }
 }

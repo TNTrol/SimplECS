@@ -6,10 +6,10 @@
 #define ENGINE_TESTS_H
 
 #include <iostream>
-#include "../ecs_engine_data/entity.h"
-#include "../ecs_engine_data/component.h"
+#include "../type/entity.h"
+#include "../type/component.h"
 #include "../utils/util_counter.h"
-#include "../ecs_engine_data/ecs_typedef.h"
+#include "../type/ecs_typedef.h"
 #include "../ecs/entity_manager.h"
 #include "../ecs/component_manager.h"
 

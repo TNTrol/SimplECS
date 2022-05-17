@@ -5,8 +5,8 @@
 #ifndef ENGINE_COMPONENT_MANAGER_H
 #define ENGINE_COMPONENT_MANAGER_H
 
-#include "../ecs_engine_data/ecs_typedef.h"
-#include "../ecs_engine_data/icomponent.h"
+#include "../type/ecs_typedef.h"
+#include "../type/icomponent.h"
 #include "../container/extend_pool.h"
 #include "../utils/hash_container.h"
 #include "../memory/pool_allocator.h"
