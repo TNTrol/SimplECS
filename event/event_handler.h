@@ -7,9 +7,9 @@
 
 #include "vector"
 #include "ievent.h"
-#include "../memory/iallocator.h"
 #include "dispatcher.h"
 #include "ievent_listener.h"
+#include "../memory/iallocator.h"
 #include "../ecs/API.h"
 
 namespace ECS
@@ -25,6 +25,7 @@ namespace ECS
             const uint32_t m_max_size_queue;
         public:
             EventHandler(uint32_t max_size_queue = EVENT_SIZE_STACK);
+            ~EventHandler();
 
             void dispatch();
 

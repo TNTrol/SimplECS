@@ -18,9 +18,7 @@ void ECS::Event::EventHandler::dispatch()
 ECS::Event::EventHandler::EventHandler(uint32_t max_size_queue) :
         m_max_size_queue(max_size_queue)
 {
-    size_t size = sizeof(EventDelegate<IEvent, IEventListener>);
-    size_t size_allocate_part = size * max_size_queue;
-    m_allocator_event = new Memory::LinearAllocator(size_allocate_part, new char[size_allocate_part]);
+    m_allocator_event = new Memory::LinearAllocator(EVENT_MEMORY_BUFFER_SIZE, new uint8_t[EVENT_MEMORY_BUFFER_SIZE]);
     m_queue.resize(m_max_size_queue);
     m_queue.clear();
 }
@@ -34,5 +32,11 @@ void ECS::Event::EventHandler::unsubscribe(ECS::Event::IDelegate &i_delegate)
         return;
     }
     m_pool[typeId].remove(&i_delegate);
+}
+
+ECS::Event::EventHandler::~EventHandler()
+{
+    delete[] (uint8_t*) m_allocator_event->get_source_ptr();
+    delete m_allocator_event;
 }
 

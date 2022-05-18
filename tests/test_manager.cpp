@@ -26,20 +26,15 @@ void test_manager()
     auto *c = componentManager.createComponent<Component<float>>(ef->getId());
     auto *c2 = componentManager.createComponent<Component<int>>(e->getId());
     auto *c3 = componentManager.createComponent<Component<float>>(e->getId());
-    componentManager.destroyComponentOfEntity<Component<float>>(c2->getOwner());
-    componentManager.destroyComponentOfEntity<Component<float>>(c->getId());
+    componentManager.destroyComponentOfEntity<Component<float>>(e->getId());
     for (auto it: componentManager.getAllComponentsOfType<Component<int>>())
     {
         std::cout << "HA\n";
     }
     std::cout << std::endl;
 
-    auto end = componentManager.endAllComponentsOfEntity(e->getId());
-    for (auto it = componentManager.beginAllComponentsOfEntity(e->getId());
-         it != componentManager.endAllComponentsOfEntity(e->getId());
-         ++it)
+    for (auto it : componentManager.getComponentsOfEntity(e->getId()))
     {
-        IComponent *component = *(it);
         std::cout << "La\n";
     }
 

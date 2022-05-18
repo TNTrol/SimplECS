@@ -14,16 +14,17 @@ namespace ECS
 {
     namespace Memory
     {
-        class IFactoryAllocator
-        {
-        public:
-            virtual IAllocator *create() = 0;
-
-            virtual void delete_allocator(IAllocator *) = 0;
-        };
-
         class ExtendMemory : public IAllocator
         {
+        public:
+            class IFactoryAllocator
+            {
+            public:
+                virtual IAllocator *create() = 0;
+
+                virtual void delete_allocator(IAllocator *) = 0;
+            };
+
         private:
             std::vector<IAllocator *> m_allocators;
             IFactoryAllocator *const m_create;
@@ -32,7 +33,7 @@ namespace ECS
                     IAllocator(UINT32_MAX, nullptr),
                     m_create(create_allocator)
             {
-                m_allocators.push_back( m_create->create());
+                m_allocators.push_back(m_create->create());
             }
 
             ~ExtendMemory()
@@ -56,7 +57,7 @@ namespace ECS
                 }
                 if (!ptr)
                 {
-                    m_allocators.push_back( m_create->create());
+                    m_allocators.push_back(m_create->create());
                     ptr = m_allocators.back()->allocate(size);
                 }
                 if (ptr)

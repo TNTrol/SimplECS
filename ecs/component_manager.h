@@ -5,15 +5,10 @@
 #ifndef ENGINE_COMPONENT_MANAGER_H
 #define ENGINE_COMPONENT_MANAGER_H
 
-#include "../type/ecs_typedef.h"
-#include "../type/icomponent.h"
-#include "../container/extend_pool.h"
-#include "../utils/hash_container.h"
-#include "../memory/pool_allocator.h"
-#include "../memory/stack_allocator.h"
 #include "API.h"
+#include "simple_ecs.h"
 
-#include "vector"
+#include <vector>
 
 namespace ECS
 {
@@ -53,6 +48,17 @@ namespace ECS
             {
                 return a.m_current != b.m_current;
             }
+        };
+
+        class ComponentContainer
+        {
+        private:
+            ComponentManager *manager;
+            EntityID m_id;
+        public:
+            ComponentContainer(ComponentManager *componentManager, EntityID id);
+            Iterator begin();
+            Iterator end();
         };
 
     protected:
@@ -103,7 +109,7 @@ namespace ECS
         T *createComponent(const EntityID entity_id, ARGS &&... args)
         {
             ComponentTypeID type_id = T::STATIC_TYPE;
-            if (m_components_of_entity[entity_id][type_id] != UINT32_MAX)
+            if (m_components_of_entity[entity_id].size() > type_id &&  m_components_of_entity[entity_id][type_id] != UINT32_MAX)
             {
                 return (T *) m_components.get(m_components_of_entity[entity_id][type_id]);
             }
@@ -137,15 +143,13 @@ namespace ECS
             m_components_of_entity[entityId][type_id] = UINT32_MAX;
         }
 
-        Iterator beginAllComponentsOfEntity(EntityID entity_id);
-
-        Iterator endAllComponentsOfEntity(EntityID entity_id);
-
         template<class E>
         ComponentIterator<E> getAllComponentsOfType()
         {
             return getContainer<E>()->template iterable<E>();
         }
+
+        ComponentContainer getComponentsOfEntity(ECS::EntityID entity_id);
     };
 
 }

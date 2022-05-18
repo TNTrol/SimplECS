@@ -5,10 +5,11 @@
 #ifndef ENGINE_IEVENT_LISTENER_H
 #define ENGINE_IEVENT_LISTENER_H
 
+
 #include "../ecs/API.h"
 #include "ievent.h"
 #include "delegate.h"
-#include "list"
+#include <list>
 
 namespace ECS
 {
@@ -24,6 +25,8 @@ namespace ECS
             void subscribe(void(Class::*Callback)(const Event* const))
             {
                 //todo
+//                SEngine->subscribeEvent();
+
             }
 
             template<class Event, class Class>
@@ -31,6 +34,8 @@ namespace ECS
             {
                 //todo
             }
+
+            void fun();
         };
     }
 }

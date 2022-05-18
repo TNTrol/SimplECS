@@ -6,6 +6,7 @@
 #define ENGINE_ECS_TYPEDEF_H
 
 #include <cinttypes>
+#include <cstddef>
 
 namespace ECS
 {

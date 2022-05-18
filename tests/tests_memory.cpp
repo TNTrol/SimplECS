@@ -3,7 +3,7 @@
 //
 #include "tests.h"
 
-class TestMemory : public Memory::IFactoryAllocator
+class TestMemory : public Memory::ExtendMemory::IFactoryAllocator
 {
     Memory::LinearAllocator linearAllocator;
 public:

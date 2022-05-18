@@ -12,18 +12,26 @@
 #define COMPONENT_SIZE_STACK 5120
 #define COMPONENT_GROW_SACK 512
 #define COMPONENT_CHUNK_STACK 100
-#define COUNT_ENTITY_TAG 8//300
+#define COUNT_ENTITY_TAG 10
 #define EVENT_SIZE_STACK 100
 #define EVENT_GROW_STACK 50
 #define EVENT_DELEGATE_SIZE 100
-#define EVENT_MEMORY_BUFFER_SIZE		4194304
-#define SYSTEM_MEMORY_BUFFER_SIZE		8388608
-#define BUFFER_SIZE		(8388608 * 12)
-//LIMIT
+#define EVENT_MEMORY_BUFFER_SIZE        4194304
+#define SYSTEM_MEMORY_BUFFER_SIZE        8388608
+#define BUFFER_SIZE        (8388608 * 16)
 #define ENTITY_MAX 1000
 #define DESTROY_MAX 1000
 #define EVENT_MAX 1000
 
+namespace ECS
+{
+    class Engine;
 
+    extern Engine *SEngine;
+
+    void initialize();
+
+    void termite();
+}
 
 #endif //ENGINE_API_H

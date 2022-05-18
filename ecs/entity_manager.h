@@ -5,15 +5,8 @@
 #ifndef ENGINE_ENTITY_MANAGER_H
 #define ENGINE_ENTITY_MANAGER_H
 
-#include "../type/ecs_typedef.h"
-#include "../utils/hash_container.h"
-#include "../type/ientity.h"
-#include "../container/extend_pool.h"
-#include "../memory/pool_allocator.h"
-#include "../memory/stack_allocator.h"
-#include "component_manager.h"
+#include "simple_ecs.h"
 #include "API.h"
-
 #include <vector>
 
 namespace ECS
@@ -78,6 +71,5 @@ namespace ECS
             return getContainer<T>()->template iterable<T>();
         }
     };
-
 }
 #endif //ENGINE_ENTITY_MANAGER_H
