@@ -9,6 +9,7 @@
 #include "../event/event_handler.h"
 #include "../memory/iallocator.h"
 #include "../utils/timer.h"
+#include "../memory/global_allocator.h"
 
 namespace ECS
 {
@@ -37,7 +38,7 @@ namespace ECS
         ComponentManager *m_component_manager;
         SystemManager *m_system_manager;
         Event::EventHandler *m_event_handler;
-        Memory::IAllocator *m_global_memory;
+        Memory::GlobalAllocator *m_global_memory;
         Util::Timer *m_timer;
     private:
         template<class E>

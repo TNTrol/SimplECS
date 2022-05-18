@@ -6,7 +6,7 @@
 #define ENGINE_SYSTEM_MANAGER_H
 
 #include "vector"
-#include "../ecs_engine_data/isystem.h"
+#include "../type/isystem.h"
 #include "../memory/iallocator.h"
 #include "engine.h"
 

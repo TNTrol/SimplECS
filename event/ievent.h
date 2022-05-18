@@ -5,7 +5,7 @@
 #ifndef ENGINE_IEVENT_H
 #define ENGINE_IEVENT_H
 
-#include "../ecs_engine_data/ecs_typedef.h"
+#include "../type/ecs_typedef.h"
 
 namespace ECS
 {

@@ -5,7 +5,7 @@
 #ifndef ENGINE_UTIL_COUNTER_H
 #define ENGINE_UTIL_COUNTER_H
 
-#include "../ecs_engine_data/ecs_typedef.h"
+#include "../type/ecs_typedef.h"
 
 namespace ECS
 {

@@ -5,9 +5,9 @@
 #ifndef ENGINE_COMPONENT_MANAGER_H
 #define ENGINE_COMPONENT_MANAGER_H
 
-#include "../ecs_engine_data/ecs_typedef.h"
-#include "../ecs_engine_data/icomponent.h"
-#include "../container/pool.h"
+#include "../type/ecs_typedef.h"
+#include "../type/icomponent.h"
+#include "../container/extend_pool.h"
 #include "../utils/hash_container.h"
 #include "../memory/pool_allocator.h"
 #include "../memory/stack_allocator.h"
@@ -21,7 +21,7 @@ namespace ECS
     {
     public:
         template<class T>
-        using ComponentIterator = Pool<IComponent>::Iterator<T>;
+        using ComponentIterator = Container::PoolContainer<T>;
 
         class Iterator
         {
@@ -57,7 +57,7 @@ namespace ECS
 
     protected:
         Util::HashContainer<IComponent> m_components;
-        std::vector<Pool<IComponent> *> m_pool;
+        std::vector<Container::ExtendPool<IComponent> *> m_pool;
         std::vector<std::vector<ComponentID>> m_components_of_entity;
         Memory::IAllocator *m_allocator;
         const uint32_t m_max_entity;
@@ -66,7 +66,7 @@ namespace ECS
         void addComponent(EntityID entityId, IComponent *component);
 
         template<class T>
-        Pool<IComponent> *getContainer()
+        Container::ExtendPool<IComponent> *getContainer()
         {
             if (T::STATIC_TYPE >= m_pool.size())
             {
@@ -74,7 +74,8 @@ namespace ECS
             }
             if (!m_pool[T::STATIC_TYPE])
             {
-                m_pool[T::STATIC_TYPE] = new Pool<IComponent>(m_allocator, sizeof(T), COUNT_ENTITY_TAG);
+                m_pool[T::STATIC_TYPE] = new Container::ExtendPool<IComponent>(m_allocator, sizeof(T),
+                                                                               COMPONENT_CHUNK_STACK);
             }
             return m_pool[T::STATIC_TYPE];
         }
@@ -101,6 +102,11 @@ namespace ECS
         template<class T, class... ARGS>
         T *createComponent(const EntityID entity_id, ARGS &&... args)
         {
+            ComponentTypeID type_id = T::STATIC_TYPE;
+            if (m_components_of_entity[entity_id][type_id] != UINT32_MAX)
+            {
+                return (T *) m_components.get(m_components_of_entity[entity_id][type_id]);
+            }
             IComponent *component_ptr = getContainer<T>()->create();
             if (!component_ptr)
             {
@@ -112,7 +118,7 @@ namespace ECS
         }
 
         template<class T>
-        void destroyComponent(const EntityID entityId)
+        void destroyComponentOfEntity(const EntityID entityId)
         {
             ComponentTypeID type_id = T::STATIC_TYPE;
             if (m_components_of_entity.size() <= entityId ||
@@ -126,25 +132,19 @@ namespace ECS
             {
                 return;
             }
-            m_pool[entityId]->remove(component);
+            m_pool[type_id]->remove(component);
             m_components.remove(m_components_of_entity[entityId][type_id]);
-            m_components_of_entity[entityId][type_id] = 0;
+            m_components_of_entity[entityId][type_id] = UINT32_MAX;
         }
 
         Iterator beginAllComponentsOfEntity(EntityID entity_id);
 
         Iterator endAllComponentsOfEntity(EntityID entity_id);
 
-        template<class T>
-        ComponentIterator<T> begin()
+        template<class E>
+        ComponentIterator<E> getAllComponentsOfType()
         {
-            return getContainer<T>()->template begin<T>();
-        }
-
-        template<class T>
-        ComponentIterator<T> end()
-        {
-            return getContainer<T>()->template end<T>();
+            return getContainer<E>()->template iterable<E>();
         }
     };
 
