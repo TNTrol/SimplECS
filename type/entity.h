@@ -9,6 +9,8 @@
 #include "../utils/util_counter.h"
 #include "ientity.h"
 
+#define ECS_ENTITY(Tag) class Tag: public ECS::Entity<Tag>
+
 namespace ECS
 {
     template<class E>

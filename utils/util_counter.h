@@ -5,16 +5,14 @@
 #ifndef ENGINE_UTIL_COUNTER_H
 #define ENGINE_UTIL_COUNTER_H
 
-#include "../type/ecs_typedef.h"
-
 namespace ECS
 {
     namespace Util
     {
         template<class T>
-        static Index get()
+        static uint32_t get()
         {
-            static Index index = 0;
+            static uint32_t index = 0;
             return index++;
         }
     }

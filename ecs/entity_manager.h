@@ -5,8 +5,9 @@
 #ifndef ENGINE_ENTITY_MANAGER_H
 #define ENGINE_ENTITY_MANAGER_H
 
-#include "simple_ecs.h"
 #include "API.h"
+#include "../ecs/component_manager.h"
+#include "../type/entity.h"
 #include <vector>
 
 namespace ECS

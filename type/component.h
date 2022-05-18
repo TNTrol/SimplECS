@@ -7,6 +7,8 @@
 
 #include "icomponent.h"
 
+#define ECS_COMPONENT(Tag) class Tag: public ECS::Component<Tag>
+
 namespace ECS
 {
     template<class T>

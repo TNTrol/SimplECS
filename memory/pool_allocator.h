@@ -5,7 +5,6 @@
 #ifndef ENGINE_POOL_ALLOCATOR_H
 #define ENGINE_POOL_ALLOCATOR_H
 
-#include <iostream>
 #include "iallocator.h"
 
 namespace ECS

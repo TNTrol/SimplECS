@@ -5,7 +5,6 @@
 #ifndef ENGINE_STACK_ALLOCATOR_H
 #define ENGINE_STACK_ALLOCATOR_H
 
-#include <cstddef>
 #include "iallocator.h"
 
 #include <queue>

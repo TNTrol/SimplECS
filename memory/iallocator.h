@@ -6,6 +6,7 @@
 #define ENGINE_IALLOCATOR_H
 
 #include <cstddef>
+#include <cstdint>
 
 namespace ECS
 {

@@ -5,7 +5,6 @@
 #ifndef ENGINE_EXTEND_ALLOCATOR_H
 #define ENGINE_EXTEND_ALLOCATOR_H
 
-#include <functional>
 #include "iallocator.h"
 
 #include "vector"

@@ -2,6 +2,7 @@
 // Created by tntrol on 16.02.2022.
 //
 #include "pool_allocator.h"
+#include <new>
 
 ECS::Memory::PoolAllocator::PoolAllocator(ECS::Memory::IAllocator *allocator, size_t size, size_t count_object) :
         Memory::IAllocator(size * count_object + count_object * sizeof(node_chunk),
@@ -9,7 +10,7 @@ ECS::Memory::PoolAllocator::PoolAllocator(ECS::Memory::IAllocator *allocator, si
         m_size_object(size),
         m_max_count(count_object)
 {
-    m_offsets = new((char *) m_first + m_size_object * m_max_count) node_chunk[m_max_count];
+    m_offsets = new ((char *) m_first + m_size_object * m_max_count) node_chunk[m_max_count];
     setup();
 }
 

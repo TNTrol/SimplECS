@@ -23,7 +23,7 @@ ECS::Memory::GlobalAllocator::~GlobalAllocator()
 void *ECS::Memory::GlobalAllocator::allocate(size_t size)
 {
     uint8_t *ptr;
-    for (auto part: m_parts)
+    for (auto &part: m_parts)
     {
         if (part.m_use + size <= part.m_size)
         {

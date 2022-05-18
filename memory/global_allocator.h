@@ -6,8 +6,8 @@
 #define ENGINE_GLOBAL_ALLOCATOR_H
 
 #include <cstddef>
-#include <stdint.h>
-#include "list"
+#include <cstdint>
+#include <list>
 
 #include "iallocator.h"
 

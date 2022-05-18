@@ -2,7 +2,6 @@
 // Created by tntrol on 12.10.2021.
 //
 
-#include <stdexcept>
 #include "stack_allocator.h"
 
 #define TYPE char

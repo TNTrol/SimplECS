@@ -6,7 +6,10 @@
 #define ENGINE_COMPONENT_MANAGER_H
 
 #include "API.h"
-#include "simple_ecs.h"
+#include "../container/extend_pool.h"
+#include "../type/component.h"
+#include "../memory/iallocator.h"
+#include "../utils/hash_container.h"
 
 #include <vector>
 

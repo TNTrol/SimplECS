@@ -6,14 +6,14 @@
 #define ENGINE_SYSTEM_MANAGER_H
 
 #include "API.h"
-#include "engine.h"
-#include "vector"
 #include "../type/isystem.h"
 #include "../memory/iallocator.h"
 
+#include <vector>
+
 namespace ECS
 {
-
+    class Engine;
     class SystemManager
     {
         friend Engine;

@@ -6,7 +6,7 @@
 #define ENGINE_ENGINE_H
 
 #include "API.h"
-#include "../event/ievent_listener.h"
+//#include "../event/ievent_listener.h"
 #include "../event/event_handler.h"
 #include "../memory/global_allocator.h"
 #include "../utils/timer.h"
@@ -19,6 +19,11 @@ namespace ECS
 
     class ComponentManager;
 
+    namespace Event
+    {
+        class IEventListener;
+    }
+
     class Engine
     {
         friend class IEntity;
@@ -29,9 +34,10 @@ namespace ECS
 
         friend class Event::IEvent;
 
-        friend class Event::IEventListener;
+        friend class  Event::IEventListener;
 
         friend class EntityManager;
+
 
     private:
         EntityManager *m_entity_manager;

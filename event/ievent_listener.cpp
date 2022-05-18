@@ -6,7 +6,7 @@
 #include "ievent_listener.h"
 
 
-void ECS::Event::IEventListener::fun()
-{
-//    SEngine->sendEvent<>();
-}
+//void ECS::IEventListener::fun()
+//{
+////    SEngine->sendEvent<>();
+//}

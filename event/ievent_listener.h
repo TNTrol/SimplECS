@@ -5,10 +5,11 @@
 #ifndef ENGINE_IEVENT_LISTENER_H
 #define ENGINE_IEVENT_LISTENER_H
 
-
 #include "../ecs/API.h"
 #include "ievent.h"
 #include "delegate.h"
+#include "../ecs/engine.h"
+
 #include <list>
 
 namespace ECS
@@ -18,24 +19,24 @@ namespace ECS
         class IEventListener
         {
         private:
-            std::list<IDelegate*> m_delegate;
+            std::list<Event::IDelegate *> m_delegate;
         public:
 
-            template<class Event, class Class>
-            void subscribe(void(Class::*Callback)(const Event* const))
+            template<class Even, class Class>
+            void subscribe(void(Class::*Callback)(const Even *const))
             {
-                //todo
-//                SEngine->subscribeEvent();
-
+                Event::EventDelegate<Class, Even> delegate = {.m_receiver = this, .m_callback=Callback};
+                SEngine->subscribeEvent<Even>(delegate);
             }
 
-            template<class Event, class Class>
-            void unsubscribe(void(Class::*Callback)(const Event* const))
+            template<class Even, class Class>
+            void unsubscribe(void(Class::*Callback)(const Even *const))
             {
-                //todo
+                Event::EventDelegate<Class, Even> delegate = {.m_receiver = this, .m_callback=Callback};
+                SEngine->unsubscribeEvent(delegate);
             }
 
-            void fun();
+//            void fun();
         };
     }
 }
