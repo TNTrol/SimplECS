@@ -18,7 +18,7 @@ namespace ECS
         {
         private:
             Memory::PoolAllocator::Iterator m_poolIterator;
-            std::vector<Memory::PoolAllocator *> *m_pools;
+            std::vector<Memory::PoolAllocator *> *const m_pools;
             uint32_t m_index;
         public:
             Iterator(std::vector<Memory::PoolAllocator *> *pools, bool end = false) :
@@ -133,9 +133,9 @@ namespace ECS
         {
         private:
             std::vector<Memory::PoolAllocator *> m_pools;
-            Memory::IAllocator *m_allocator;
-            size_t m_size_object;
-            size_t m_count_object;
+            Memory::IAllocator *const m_allocator;
+            const size_t m_size_object;
+            const size_t m_count_object;
         public:
             ExtendPool(Memory::IAllocator *allocator, size_t size_object, size_t count_object) :
                     m_allocator(allocator),
@@ -153,7 +153,7 @@ namespace ECS
                 }
             }
 
-            inline T *create()
+            T *create()
             {
                 T *ptr = nullptr;
                 for (auto pool: m_pools)
