@@ -6,17 +6,24 @@
 
 void ECS::SystemManager::update(float delta_time)
 {
-
+    for(auto *system: m_order)
+    {
+        system->update(); //todo
+    }
 }
 
 ECS::SystemManager::SystemManager(ECS::Memory::IAllocator *allocator)
 {
-
+    uint8_t *p = (uint8_t*) allocator->allocate(SYSTEM_MEMORY_BUFFER_SIZE);
+    m_allocator = new Memory::LinearAllocator(SYSTEM_MEMORY_BUFFER_SIZE, p); //todo
 }
 
 ECS::SystemManager::~SystemManager()
 {
-
+    for (auto *system: m_systems)
+    {
+        system->~ISystem();
+    }
 }
 
 void ECS::SystemManager::UpdateSystemWorkOrder()

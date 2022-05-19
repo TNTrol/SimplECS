@@ -14,7 +14,7 @@ ECS::Memory::GlobalAllocator::GlobalAllocator(size_t size, size_t grow) :
 
 ECS::Memory::GlobalAllocator::~GlobalAllocator()
 {
-    for (auto part: m_parts)
+    for (auto &part: m_parts)
     {
         delete[] part.m_ptr;
     }

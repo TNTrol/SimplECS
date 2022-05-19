@@ -7,7 +7,7 @@
 
 #include "API.h"
 #include "../type/isystem.h"
-#include "../memory/iallocator.h"
+#include "../memory/linear_allocator.h"
 
 #include <vector>
 

@@ -23,8 +23,6 @@
 #define DESTROY_MAX 1000
 #define EVENT_MAX 1000
 
-//#include "engine.h"
-
 namespace ECS
 {
     class Engine;

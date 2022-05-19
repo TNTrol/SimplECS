@@ -14,7 +14,7 @@ ECS::Engine::Engine()
     m_global_memory = new Memory::GlobalAllocator(BUFFER_SIZE, BUFFER_SIZE);
     m_component_manager = new ComponentManager(COMPONENT_SIZE_STACK, COMPONENT_GROW_SACK, m_global_memory);
     m_entity_manager = new EntityManager(m_component_manager, ENTITY_MAX, ENTITY_GROW_STACK, m_global_memory);
-    m_system_manager = new SystemManager();
+    m_system_manager = new SystemManager(m_global_memory);
     m_timer = new Util::Timer();
 }
 

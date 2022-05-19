@@ -21,6 +21,7 @@ namespace ECS
         float m_last_update = 0.0f;
         bool m_enable = true;
     public:
+        virtual ~ISystem() = 0;
 
         virtual SystemTypeID getType() = 0;
 
