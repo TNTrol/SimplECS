@@ -19,17 +19,35 @@ namespace ECS
     private:
         ComponentID m_id;
         EntityID m_owner;
+        const ComponentTypeID m_type;
+        bool m_is_active;
     public:
+        IComponent(ComponentTypeID componentTypeId) : m_type(componentTypeId)
+        {}
+
         inline ComponentID getId() const
         {
             return m_id;
         }
 
-        virtual ComponentTypeID getType() = 0;
+        inline ComponentTypeID getType()
+        {
+            return m_type;
+        }
 
         inline EntityID getOwner()
         {
             return m_owner;
+        }
+
+        inline bool isActive()
+        {
+            return m_is_active;
+        }
+
+        inline void setActive(bool active)
+        {
+            m_is_active = active;
         }
     };
 }

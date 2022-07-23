@@ -24,10 +24,12 @@ namespace ECS
     public:
         static const EntityTypeID STATIC_TYPE;
     public:
-        inline EntityTypeID getType() override
-        {
-            return STATIC_TYPE;
-        }
+        Entity(): IEntity(STATIC_TYPE)
+        {}
+//        inline EntityTypeID getType() override
+//        {
+//            return STATIC_TYPE;
+//        }
 //        void Start() override
 //        {
 //

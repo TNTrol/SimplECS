@@ -13,8 +13,8 @@ namespace ECS
     {
         struct node_chunk
         {
-            uint32_t prev = 0xFFFFFFFF;
-            uint32_t next = 0;
+            uint16_t prev = 0xFFFF;
+            uint16_t next = 0;
         };
 
         class PoolAllocator : public Memory::IAllocator
@@ -25,10 +25,10 @@ namespace ECS
             private:
                 const void *m_objects;
                 node_chunk *m_offsets;
-                uint32_t m_size;
-                uint32_t m_current;
-                uint32_t m_size_obj;
-                uint32_t m_end;
+                uint16_t m_size;
+                uint16_t m_size_obj;
+                uint16_t m_current;
+                uint16_t m_end;
             public:
                 Iterator(node_chunk *offsets, const void *objs, uint32_t size, uint32_t start, uint32_t size_obj,
                          uint32_t stack);
@@ -56,12 +56,12 @@ namespace ECS
 
         private:
             node_chunk *m_offsets;
-            const size_t m_size_object;
+            const uint32_t m_size_object;
             const uint32_t m_max_count;
-            uint32_t m_head;
-            uint32_t m_tail;
-            uint32_t m_stack;
-            uint32_t m_curr;
+            uint16_t m_head;
+            uint16_t m_tail;
+            uint16_t m_stack;
+            uint16_t m_curr;
         private:
             void setup();
 

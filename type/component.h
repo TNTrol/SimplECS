@@ -18,13 +18,12 @@ namespace ECS
         void operator delete(void *) = delete;
 
         void operator delete[](void *) = delete;
+
     public:
         static const ComponentTypeID STATIC_TYPE;
     public:
-        inline ComponentTypeID getType() override
-        {
-            return STATIC_TYPE;
-        }
+        Component() : IComponent(STATIC_TYPE)
+        {}
     };
 
     template<class T>

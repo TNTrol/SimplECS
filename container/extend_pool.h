@@ -52,12 +52,12 @@ namespace ECS
 
             E *operator*() const
             {
-                return (E *) m_poolIterator.operator*();
+                return static_cast<E *>(m_poolIterator.operator*());
             }
 
             E *operator->()
             {
-                return (E *) m_poolIterator.operator->();
+                return static_cast<E *>(m_poolIterator.operator->());
             }
 
             Iterator<E> &operator++()
@@ -155,22 +155,22 @@ namespace ECS
 
             T *create()
             {
-                T *ptr = nullptr;
+                void *ptr = nullptr;
                 for (auto pool: m_pools)
                 {
-                    ptr = (T *) pool->allocate(0);
+                    ptr = pool->allocate(0);
                     if (ptr)
                     {
-                        return ptr;
+                        return static_cast<T *>(ptr);
                     }
                 }
                 auto pool = new Memory::PoolAllocator(m_allocator, m_size_object, m_count_object);
                 if (pool)
                 {
                     m_pools.push_back(pool);
-                    ptr = (T *) pool->allocate(0);
+                    ptr = pool->allocate(m_size_object);
                 }
-                return ptr;
+                return static_cast<T *>(ptr);
             }
 
             inline void remove(T *ptr)

@@ -28,7 +28,7 @@ void *ECS::Memory::PoolAllocator::allocate(size_t)
         m_tail = m_curr;
         if( m_stack == m_curr && m_offsets[m_stack].next == m_stack)
         {
-            m_stack = UINT32_MAX;
+            m_stack = UINT16_MAX;
         }
         m_curr++;
     }
@@ -89,7 +89,7 @@ void ECS::Memory::PoolAllocator::free(const void *ptr)
         m_stack = ind;
     }
     m_count_object--;
-    m_offsets[ind] = {0xFFFFFFFF, m_stack};
+    m_offsets[ind] = {0xFFFF, m_stack};
     m_stack = ind;
     m_use_size -= m_size_object;
 }
@@ -106,7 +106,7 @@ void ECS::Memory::PoolAllocator::setup()
     m_head = 0;
     m_count_object = 0;
     m_use_size = m_max_count * sizeof (node_chunk);
-    m_offsets[m_stack] = {0xFFFFFFFF, m_stack};
+    m_offsets[m_stack] = {0xFFFF, m_stack};
 }
 
 void ECS::Memory::PoolAllocator::clear()

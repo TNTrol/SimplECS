@@ -17,14 +17,19 @@ namespace ECS
         friend class EntityManager;
 
     private:
-        EntityID m_id; //= Util::get<IEntity>();
-        bool m_active = false;
-    public:
-        //virtual ~IEntity();
-        virtual EntityTypeID getType() = 0;
+        EntityID m_id;
+        const EntityTypeID m_type_id;
+        bool m_is_enable;
 
-//        virtual void Start() = 0;
-//        virtual void Delete() = 0;
+    public:
+        IEntity(EntityTypeID type_id) : m_type_id(type_id)
+        {}
+
+        EntityTypeID getType()
+        {
+            return m_type_id;
+        }
+
         inline EntityID getId()
         {
             return m_id;
@@ -32,12 +37,12 @@ namespace ECS
 
         bool isActive()
         {
-            return m_active;
+            return m_is_enable;
         }
 
         void setActive(bool active)
         {
-            m_active = active;
+            m_is_enable = active;
         }
 
         inline bool operator==(const IEntity &rhs) const

@@ -16,14 +16,21 @@ namespace ECS
     {
         friend SystemManager;
     private:
-        Priority m_priority = 0;
+
         float m_update_interval = 0.0f;
         float m_last_update = 0.0f;
-        bool m_enable = true;
+        SystemTypeID m_type;
+        Priority m_priority;
+        bool m_is_enable;
+
     public:
+        ISystem(SystemTypeID type_id): m_type(type_id){}
         virtual ~ISystem() = 0;
 
-        virtual SystemTypeID getType() = 0;
+        inline SystemTypeID getType()
+        {
+            return m_type;
+        }
 
         virtual void preUpdate() = 0;
 

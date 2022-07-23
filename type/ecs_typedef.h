@@ -15,10 +15,10 @@ namespace ECS
     typedef Number Index;
     typedef Number ComponentID;
     typedef Number SystemID;
-    typedef Number EntityTypeID;
-    typedef Number ComponentTypeID;
-    typedef Number SystemTypeID;
-    typedef Number Priority;
+    typedef uint16_t EntityTypeID;
+    typedef uint16_t ComponentTypeID;
+    typedef uint16_t SystemTypeID;
+    typedef uint16_t Priority;
     typedef Number EventTypeID;
 }
 

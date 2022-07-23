@@ -34,7 +34,7 @@ namespace ECS
             ISystem *system = m_systems[id];
             if (system)
             {
-                system->m_enable = state;
+                system->m_is_enable = state;
             }
         }
 

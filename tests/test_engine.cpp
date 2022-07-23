@@ -96,4 +96,5 @@ void test_engine()
     }
 
     ECS::termite();
+    std::cout << sizeof(ECS::Entity<int>);
 }
